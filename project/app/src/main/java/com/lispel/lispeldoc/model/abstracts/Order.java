@@ -4,7 +4,6 @@ package com.lispel.lispeldoc.model.abstracts;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 public abstract class Order {
     protected long id;
     protected Date date;

@@ -24,6 +24,7 @@ public class NewOrderActivity extends AppCompatActivity {
     EditText modelCartridgeEditText;
     EditText clientEditText;
     EditText serviceItemEditText;
+    EditText commentEditText;
     Button submitButton;
 
     @Override
@@ -35,6 +36,7 @@ public class NewOrderActivity extends AppCompatActivity {
         modelCartridgeEditText = findViewById(R.id.model_cartridge);
         clientEditText = findViewById(R.id.client_name);
         serviceItemEditText = findViewById(R.id.service_item);
+        commentEditText = findViewById(R.id.comment_edit_text);
         submitButton = findViewById(R.id.button);
 
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -45,6 +47,7 @@ public class NewOrderActivity extends AppCompatActivity {
                 intent.putExtra(MainActivity.MODEL_CARTRIDGE, modelCartridgeEditText.getText().toString().trim());
                 intent.putExtra(MainActivity.STICKER_NUMBER, stickerNumberEditText.getText().toString().trim());
                 intent.putExtra(MainActivity.SERVICE, serviceItemEditText.getText().toString().trim());
+                intent.putExtra(MainActivity.COMMENT, commentEditText.getText().toString().trim());
                 setResult(RESULT_OK, intent);
                 finish();
             }
