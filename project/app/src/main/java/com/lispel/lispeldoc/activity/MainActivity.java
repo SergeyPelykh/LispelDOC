@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         weirdClassModel = new ViewModelProvider(this).get(WeirdClassModel.class);
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        final WeirdClassListAdapter adapter = new WeirdClassListAdapter(new WeirdClassListAdapter.StickerNumberDiff());
+        final WeirdClassListAdapter adapter = new WeirdClassListAdapter(new WeirdClassListAdapter.StickerNumberDiff(), this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         weirdClassModel.getAllWeirdClasses().observe(this, weirdClasses -> {
@@ -118,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
 
         ActivityResultLauncher<Intent> startNewActivityForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>(){
-                    @SuppressLint("RestrictedApi")
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         if (result.getResultCode() == Activity.RESULT_OK){

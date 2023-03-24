@@ -1,14 +1,21 @@
 package com.lispel.lispeldoc.model.lispel;
 
+import android.content.Context;
+import android.content.Intent;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
+import com.lispel.lispeldoc.activity.WeirdActivity;
+
 public class WeirdClassListAdapter extends ListAdapter<WeirdClass, WeirdClassViewHolder> {
-    public WeirdClassListAdapter(@NonNull DiffUtil.ItemCallback<WeirdClass> diffCallback) {
+    Context context;
+    public WeirdClassListAdapter(@NonNull DiffUtil.ItemCallback<WeirdClass> diffCallback, Context context) {
         super(diffCallback);
+        this.context = context;
     }
 
 
@@ -21,8 +28,9 @@ public class WeirdClassListAdapter extends ListAdapter<WeirdClass, WeirdClassVie
     @Override
     public void onBindViewHolder(@NonNull WeirdClassViewHolder holder, int position) {
         WeirdClass weirdClass = getItem(position);
-        holder.bind(weirdClass);
+        holder.bind(weirdClass, context);
     }
+
     public static class StickerNumberDiff extends DiffUtil.ItemCallback<WeirdClass>{
 
         @Override
@@ -36,4 +44,7 @@ public class WeirdClassListAdapter extends ListAdapter<WeirdClass, WeirdClassVie
         }
 
     }
+
+
+
 }

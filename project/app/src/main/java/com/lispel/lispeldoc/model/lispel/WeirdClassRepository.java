@@ -8,6 +8,8 @@ import com.lispel.lispeldoc.model.dao.WeirdClassDAO;
 
 import java.util.List;
 
+
+
 public class WeirdClassRepository {
     private WeirdClassDAO weirdClassDAO;
     private LiveData<List<WeirdClass>> allWeirdClasses;
@@ -30,5 +32,14 @@ public class WeirdClassRepository {
         WeirdClassDatabase.databaseWriteExecutor.execute(() ->{
             weirdClassDAO.deleteAll();
         });
+    }
+    void delete(WeirdClass weirdClass){
+        WeirdClassDatabase.databaseWriteExecutor.execute(()->{
+            weirdClassDAO.delete(weirdClass);
+        });
+    }
+    LiveData<WeirdClass> getByNumber(String number){
+        System.out.println("!!!!!!!!!!!getByNumber()");
+        return weirdClassDAO.getWeirdClass(number);
     }
 }

@@ -22,7 +22,7 @@ public abstract class WeirdClassDatabase extends RoomDatabase {
     static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-    static WeirdClassDatabase getDatabase(final Context context) {
+    public static WeirdClassDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (StickerNumberDatabase.class) {
                 if (INSTANCE == null) {
