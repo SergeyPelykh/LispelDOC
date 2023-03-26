@@ -28,6 +28,11 @@ public class WeirdClass {
     @TypeConverters({Convert.class})
     private Date date_of_create;
 
+
+    @ColumnInfo(name = "date_of_last_edit")
+    @TypeConverters({Convert.class})
+    private Date date_of_last_edit;
+
     public WeirdClass() {
         this.date_of_create = new Date();
     }
@@ -35,6 +40,14 @@ public class WeirdClass {
     public WeirdClass(String number) {
         this.number = number;
         this.date_of_create = new Date();
+    }
+
+    public Date getDate_of_last_edit() {
+        return date_of_last_edit;
+    }
+
+    public void setDate_of_last_edit(Date date_of_last_edit) {
+        this.date_of_last_edit = date_of_last_edit;
     }
 
     public int getId() {

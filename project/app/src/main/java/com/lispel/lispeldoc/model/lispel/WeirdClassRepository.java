@@ -39,7 +39,23 @@ public class WeirdClassRepository {
         });
     }
     LiveData<WeirdClass> getByNumber(String number){
-        System.out.println("!!!!!!!!!!!getByNumber()");
+        //System.out.println("!!!!!!!!!!!getByNumber()");
         return weirdClassDAO.getWeirdClass(number);
+    }
+
+    LiveData<WeirdClass> getById(int id){
+        //System.out.println("!!!!!!!!!!!getById()");
+        return weirdClassDAO.getWeirdClassById(id);
+    }
+
+    void deleteById(int id){
+        WeirdClassDatabase.databaseWriteExecutor.execute(() ->{
+            weirdClassDAO.deleteById(id);
+        });
+    }
+    void update(WeirdClass weirdClass){
+        WeirdClassDatabase.databaseWriteExecutor.execute(() ->{
+            weirdClassDAO.update(weirdClass);
+        });
     }
 }

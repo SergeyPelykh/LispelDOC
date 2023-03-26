@@ -32,8 +32,13 @@ public class WeirdClassModel extends AndroidViewModel {
     public void delete(WeirdClass weirdClass){
         weirdClassRepository.delete(weirdClass);
     }
-    public LiveData<WeirdClass> getByNumber(String number){
-        return weirdClassRepository.getByNumber(number);
+    public LiveData<WeirdClass> getById(int id){
+        return weirdClassRepository.getById(id);
     }
+
+    public void deleteById(int id){
+        weirdClassRepository.deleteById(id);
+    }
+    public void update(WeirdClass weirdClass){weirdClassRepository.update(weirdClass);}
 
 }
