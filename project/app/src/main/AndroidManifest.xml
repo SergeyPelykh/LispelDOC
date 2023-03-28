@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LispelDOC">
         <activity
+            android:name=".activity.TestNewOrderActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.WeirdActivity"
             android:exported="false" />
         <activity

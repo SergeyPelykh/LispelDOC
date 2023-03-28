@@ -3,11 +3,14 @@ package com.lispel.lispeldoc.model.lispel;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 import java.util.Date;
 
 import com.lispel.lispeldoc.model.utility.Convert;
+
+import org.jetbrains.annotations.NotNull;
 
 @Entity(tableName = "weird_table")
 @TypeConverters({Convert.class})
@@ -36,7 +39,7 @@ public class WeirdClass {
     public WeirdClass() {
         this.date_of_create = new Date();
     }
-
+    @Ignore
     public WeirdClass(String number) {
         this.number = number;
         this.date_of_create = new Date();

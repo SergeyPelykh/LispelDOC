@@ -1,4 +1,5 @@
 package com.lispel.lispeldoc.activity;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -6,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -15,8 +17,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.lispel.lispeldoc.R;
+import com.lispel.lispeldoc.model.lispel.Toner;
+import com.lispel.lispeldoc.model.lispel.TonerRepository;
 import com.lispel.lispeldoc.model.lispel.WeirdClassModel;
 import java.text.SimpleDateFormat;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 
 
 public class WeirdActivity extends AppCompatActivity {
@@ -34,11 +39,17 @@ public class WeirdActivity extends AppCompatActivity {
     private TextView dateTextView;
     private TextView serviceTextView;
     private TextView commentTextView;
+    private TextView tonerTextView;
+    private EditText tonerNameEditText;
+    private EditText tonerFullNameEditText;
+    private Button tonerButton;
+    private Button tonerSelectButton;
     private Button deleteButton;
     private Button editButton;
     private WeirdClassModel weirdClassModel;
     private int id = 0;
     Context context;
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +65,25 @@ public class WeirdActivity extends AppCompatActivity {
         commentTextView = findViewById(R.id.comment_TextView);
         deleteButton = findViewById(R.id.delete_button);
         editButton = findViewById(R.id.edit_button);
+
+        tonerNameEditText = findViewById(R.id.toner_name_EditText);
+        tonerFullNameEditText = findViewById(R.id.toner_full_name_EditText);
+        tonerTextView = findViewById(R.id.toner_TextView);
+        tonerButton = findViewById(R.id.toner_add_button);
+        tonerSelectButton = findViewById(R.id.toner_select_button);
+        TonerRepository tonerRepository = new TonerRepository(getApplication());
+
+
+        tonerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(WeirdActivity.this, TestNewOrderActivity.class);
+                intent.putExtra(ID, id);
+                intent.putExtra(MainActivity.MODE, "createNew");
+                context.startActivity(intent);
+            }
+        });
+
         Intent intent = getIntent();
         if (intent != null) {
             id = intent.getIntExtra(MainActivity.ID, 0);
@@ -134,14 +164,6 @@ public class WeirdActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                     }
                 }).show();
-
-
-
-
-
-
-
-
             }
         });
     }
