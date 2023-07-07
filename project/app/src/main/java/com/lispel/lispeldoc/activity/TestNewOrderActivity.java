@@ -1,116 +1,160 @@
 package com.lispel.lispeldoc.activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.lispel.lispeldoc.R;
+import com.lispel.lispeldoc.model.abstracts.ListViewDisplaible;
 import com.lispel.lispeldoc.model.lispel.TestAdapter;
-import com.lispel.lispeldoc.model.lispel.WeirdClass;
-import com.lispel.lispeldoc.model.lispel.WeirdClassListAdapter;
-import com.lispel.lispeldoc.model.lispel.WeirdClassModel;
 
-import java.util.Date;
+import com.lispel.lispeldoc.secondVersion.model.Cartridge;
+import com.lispel.lispeldoc.secondVersion.model.Client;
+import com.lispel.lispeldoc.secondVersion.model.Sticker;
+import com.lispel.lispeldoc.secondVersion.repositoriy.CartridgeRepository;
+import com.lispel.lispeldoc.secondVersion.repositoriy.ClientRepository;
+import com.lispel.lispeldoc.secondVersion.repositoriy.ComponentRepository;
+import com.lispel.lispeldoc.secondVersion.repositoriy.StickerRepository;
+import com.lispel.lispeldoc.secondVersion.repositoriy.TonerRepository;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicReference;
+
+import io.reactivex.Scheduler;
+import io.reactivex.schedulers.Schedulers;
 
 public class TestNewOrderActivity extends AppCompatActivity {
-    TextView stickerNumberTextView;
-    EditText modelCartridgeEditText;
-    EditText clientEditText;
-    EditText serviceItemEditText;
-    EditText commentEditText;
-    Button submitButton;
-    private WeirdClassModel weirdClassModel;
-    private int id;
+    private TextView stickerNumber;
+    private EditText stickerNumberEdit;
+    private TextView titleStickerNumber;
+    private TextView modelCartridge;
+    private TextView addNewItemTextView;
+    private TextView clientNameTextView;
+    private TextView service;
+    private TextView commentTextView;
+    private Button submitButton;
+    private Button submitButton2;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_new_order);
 
-        weirdClassModel = new ViewModelProvider(this).get(WeirdClassModel.class);
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        final TestAdapter adapter = new TestAdapter(new WeirdClassListAdapter.StickerNumberDiff(), this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        weirdClassModel.getAllWeirdClasses().observe(this, weirdClasses -> {
-            if (weirdClasses != null) {
-                adapter.submitList(weirdClasses);
-            }
-        });
 
-        weirdClassModel = new ViewModelProvider(this).get(WeirdClassModel.class);
-        stickerNumberTextView = findViewById(R.id.sticker_number);
-        modelCartridgeEditText = findViewById(R.id.model_cartridge);
-        clientEditText = findViewById(R.id.client_name);
-        serviceItemEditText = findViewById(R.id.service_item);
-        commentEditText = findViewById(R.id.comment_edit_text);
-        submitButton = findViewById(R.id.button);
-        Intent intent = getIntent();
-        if (intent != null) {
-            id = intent.getIntExtra(MainActivity.ID, 0);
-            weirdClassModel.getById(id).observe(this, x -> {
-                if (x != null) {
-                    System.out.println(x.getCartridge());
-                    stickerNumberTextView.setText(x.getNumber());
-                    modelCartridgeEditText.setText(x.getCartridge());
-                    clientEditText.setText(x.getClient());
-                    serviceItemEditText.setText(x.getService());
-                    commentEditText.setText(x.getComment());
-                }
-            });
-        }
-        stickerNumberTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int number = Integer.parseInt(stickerNumberTextView.getText().toString().substring(2)) + 1;
-                stickerNumberTextView.setText(stickerNumberTextView.getText().subSequence(0, 2) + "" + number);
-                stickerNumberTextView.setTextSize(22);
-                stickerNumberTextView.setEnabled(false);
-            }
-        });
+        //StickerLispelRepository stickerLispelRepository = new StickerLispelRepository(getApplication());
+        StickerRepository stickerRepository = new StickerRepository(getApplication());
+        ClientRepository clientRepository = new ClientRepository(getApplication());
+        TonerRepository tonerRepository = new TonerRepository(getApplication());
+        ComponentRepository componentRepository = new ComponentRepository(getApplication());
+        CartridgeRepository cartridgeRepository = new CartridgeRepository(getApplication());
+        service = findViewById(R.id.serviceTextView);
+        clientNameTextView = findViewById(R.id.clientNameTextView);
+        stickerNumberEdit = findViewById(R.id.stickerNumberEditText);
+        titleStickerNumber = findViewById(R.id.titleStickerNumberTextView);
+        recyclerView = findViewById(R.id.recyclerview);
+        stickerNumber = findViewById(R.id.stickerNumberTextView);
+        modelCartridge = findViewById(R.id.cartridgeTextView);
+        submitButton = findViewById(R.id.submitButton);
+        submitButton2 = findViewById(R.id.submitButton2);
+//        for (int i = 0; i < 10; i++ ){
+//            Client client = new Client();
+//            client.setName("Client " + i);
+//            client.setFullName("Fullname " + i);
+//            client.setAddress("Address " + i);
+//            client.setPhone("22-33-1" + i);
+//            client.setType("Person");
+//            clientRepository.insert(client);
+//        }
 
+        Client client = new Client();
+        client.setName("Акватория");
+        //clientRepository.insert(client);
+
+        Cartridge cartridge = new Cartridge();
+        cartridge.setModel("1a");
+        cartridge.addSticker(5l);
+        System.out.println("save cartridge");
+        //cartridgeRepository.insert(cartridge);
+
+
+
+
+
+
+
+
+
+        Sticker sticker = new Sticker();
+        sticker.setNumber("LS741913");
+        //stickerRepository.insert(sticker);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = getIntent();
-                String mode;
-                if (intent != null) {
-                    WeirdClass weirdClass = new WeirdClass();
-                    weirdClass.setClient(clientEditText.getText().toString());
-                    weirdClass.setNumber(stickerNumberTextView.getText().toString());
-                    weirdClass.setCartridge(modelCartridgeEditText.getText().toString());
-                    weirdClass.setService(serviceItemEditText.getText().toString());
-                    weirdClass.setComment(commentEditText.getText().toString());
-                    mode = intent.getStringExtra(MainActivity.MODE);
-                    switch (mode) {
-                        case "createNew":
-                            weirdClassModel.insert(weirdClass);
-                            break;
-                        case "editExist":
-                            weirdClassModel.getById(id).observe(TestNewOrderActivity.this, x -> {
-                                weirdClass.setDate_of_create(x.getDate_of_create());
-                                weirdClass.setId(id);
-                                weirdClass.setDate_of_last_edit(new Date());
-                                weirdClassModel.update(weirdClass);
-                            });
-                            break;
-                    }
-                }
-                finish();
+                System.out.println("onClick()");
+                LiveData<Cartridge> liveData = cartridgeRepository.getCartridgeByModel("1a");
+                liveData.observe(TestNewOrderActivity.this, x -> {
+                    stickerRepository.getStickerByNumber("LS741913").observe(TestNewOrderActivity.this, y -> {
+                        System.out.println("get cartridge");
+                        //x.addSticker(y.getId());
+
+                        clientRepository.getClientByName("Акватория").observe(TestNewOrderActivity.this, r ->{
+                            x.addOwner(r.getId());
+                            modelCartridge.setText(x.getOwner() + "" + x.getModel());
+                        });
+                        x.setModel("85a");
+                    cartridgeRepository.update(x);
+                    liveData.removeObservers(TestNewOrderActivity.this);
+                });
+                });
+            }
+
+
+        });
+        submitButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clientRepository.getClientByName("Client 0").observe(TestNewOrderActivity.this, x -> {
+                    clientNameTextView.setText(x.getName() + " | " + x.getFullName() + " | " + x.getPhone()  + " | " + x.getId());
+                });
+//                cartridgeRepository.getCartridgeByModel("85a").observe(TestNewOrderActivity.this, x -> {
+//                    clientRepository.getClientById(x.getOwner()).observe(TestNewOrderActivity.this, y -> {
+//                        stickerRepository.getStickerById(x.getStickers().get(1)).observe(TestNewOrderActivity.this, d ->{
+//                            clientNameTextView.setText(x.getModel() + " | " + d.getNumber() + " | "+ y.getName());
+//                        });
+//                    });
+//                });
+
             }
         });
+
+
+
+
     }
 
+    void displayRecyclerList(RecyclerView recyclerView, ArrayList<ListViewDisplaible> arr, TextView textView) {
+        recyclerView.setVisibility(View.VISIBLE);
+        final TestAdapter.ClickListener clickListener = new TestAdapter.ClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                textView.setText(arr.get(position).getDescription());
+                recyclerView.setVisibility(View.INVISIBLE);
+            }
+        };
+        TestAdapter adapter = new TestAdapter(new TestAdapter.StickerNumberDiff(), TestNewOrderActivity.this, clickListener);
+        recyclerView.setAdapter(adapter);
+        adapter.submitList(arr);
+    }
 }

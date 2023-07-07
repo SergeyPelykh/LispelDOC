@@ -1,10 +1,14 @@
-package com.lispel.lispeldoc.model.lispel;
+package com.lispel.lispeldoc.model.repositories;
+
 
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
 import com.lispel.lispeldoc.model.dao.TonerDAO;
+import com.lispel.lispeldoc.model.lispel.WeirdClassDatabase;
+import com.lispel.lispeldoc.model.models.Toner;
+
 
 import java.util.List;
 

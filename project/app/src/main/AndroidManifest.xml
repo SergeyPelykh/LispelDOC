@@ -13,6 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LispelDOC">
         <activity
+            android:name=".activity.InsertEntityInBAseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AddOrderActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.TestNewOrderActivity"
             android:exported="false" />
         <activity
@@ -30,6 +36,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

@@ -17,11 +17,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.lispel.lispeldoc.R;
-import com.lispel.lispeldoc.model.lispel.Toner;
-import com.lispel.lispeldoc.model.lispel.TonerRepository;
+import com.lispel.lispeldoc.model.models.PartOfCartridge;
+import com.lispel.lispeldoc.model.models.Toner;
+import com.lispel.lispeldoc.model.repositories.TonerRepository;
 import com.lispel.lispeldoc.model.lispel.WeirdClassModel;
+import com.lispel.lispeldoc.model.utility.ServiceForEntity;
+import com.lispel.lispeldoc.secondVersion.model.Client;
+
 import java.text.SimpleDateFormat;
-import java.util.concurrent.atomic.AtomicReferenceArray;
 
 
 public class WeirdActivity extends AppCompatActivity {
@@ -77,7 +80,7 @@ public class WeirdActivity extends AppCompatActivity {
         tonerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(WeirdActivity.this, TestNewOrderActivity.class);
+                Intent intent = new Intent(WeirdActivity.this, AddOrderActivity.class);
                 intent.putExtra(ID, id);
                 intent.putExtra(MainActivity.MODE, "createNew");
                 context.startActivity(intent);
@@ -103,6 +106,19 @@ public class WeirdActivity extends AppCompatActivity {
                 }
             });
         }
+
+        tonerSelectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(WeirdActivity.this, InsertEntityInBAseActivity.class);
+                intent.putExtra(ID, id);
+                intent.putExtra(MainActivity.MODE, "createNew");
+                intent.putStringArrayListExtra("listEntityFields", (new Client().getNameAllFields()));
+                intent.putExtra("titleActivity", "Добавление нового клиента");
+                intent.putExtra("repository", "client");
+                context.startActivity(intent);
+            }
+        });
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override

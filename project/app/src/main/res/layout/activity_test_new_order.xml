@@ -6,14 +6,16 @@
     android:layout_height="match_parent"
     android:background="#7e7e7e"
     tools:context=".activity.NewOrderActivity">
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/recycler_view_item"/>
+        tools:listitem="@layout/recycler_view_item" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -23,71 +25,84 @@
         android:background="#BCBBBB"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Номер картриджа:" />
 
         <TextView
-            android:id="@+id/sticker_number"
+            android:id="@+id/titleStickerNumberTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Номер картриджа:"/>
+
+        <TextView
+            android:id="@+id/stickerNumberTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="26sp"
             android:gravity="center_horizontal"
-            android:text="LS240988" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Заказчик:" />
-
+            android:text="..."/>
         <EditText
-            android:id="@+id/client_name"
+            android:id="@+id/stickerNumberEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="26sp"
             android:gravity="center_horizontal"
-            android:text="Акватория" />
+            android:text="..."
+            />
 
         <TextView
+            android:id="@+id/titleClientTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Модель картриджа" />
+            android:text="Клиент:"/>
 
-        <EditText
-            android:id="@+id/model_cartridge"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="HP85а" />
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="что сделать?" />
-
-        <EditText
-            android:id="@+id/service_item"
+            android:id="@+id/clientNameTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Заправить" />
+            android:textSize="26sp"
+            android:text="..."/>
+
         <TextView
+            android:id="@+id/titleCartridgeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="комментарий" />
+            android:text="Картридж"/>
 
-        <EditText
-            android:id="@+id/comment_edit_text"
+        <TextView
+            android:id="@+id/cartridgeTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="комментарий" />
+            android:textSize="26sp"
+            android:text="..."/>
+        <TextView
+            android:id="@+id/titleServiceTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Работы"/>
+
+        <TextView
+            android:id="@+id/serviceTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="26sp"
+            android:layout_marginBottom="30dp"
+            android:text="..."/>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/submitButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
             android:text="Button" />
+        <Button
+            android:id="@+id/submitButton2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="Button2" />
+
     </LinearLayout>
 
 

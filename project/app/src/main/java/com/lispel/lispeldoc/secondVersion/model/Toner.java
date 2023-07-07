@@ -1,28 +1,24 @@
-package com.lispel.lispeldoc.model.lispel;
+package com.lispel.lispeldoc.secondVersion.model;
 
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import org.jetbrains.annotations.NotNull;
-
-@Entity(tableName = "toner_table")
+@Entity(tableName = "toner_table_second")
 public class Toner {
     @PrimaryKey(autoGenerate = true)
-    private int id;
-    @ColumnInfo(name = "name")
+    private long id;
     private String name;
-    @ColumnInfo(name="fullName")
     private String fullName;
+    private int weight;
 
     public Toner() {
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -40,5 +36,13 @@ public class Toner {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 }

@@ -1,25 +1,20 @@
-package com.lispel.lispeldoc.model.dao;
-
+package com.lispel.lispeldoc.newVersion.DAO;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-
-import com.lispel.lispeldoc.model.models.Toner;
+import com.lispel.lispeldoc.newVersion.models.Toner;
 
 import java.util.List;
 
 @Dao
 public interface TonerDAO {
-    @Insert()
+    @Insert
     void insert(Toner toner);
-
-    @Query("SELECT * FROM toner_table2")
+    @Query("SELECT * FROM toner_table")
     LiveData<List<Toner>> getAllToners();
-
-    @Query("DELETE FROM toner_table2")
+    @Query(("DELETE FROM toner_table"))
     void deleteAll();
-
 }
