@@ -297,192 +297,192 @@
 
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
-        app:layout_constraintStart_toEndOf="@+id/linearLayout3"
-        app:layout_constraintTop_toTopOf="parent">
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/linearLayout2"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:visibility="invisible"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/linearLayout3"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
 
-        <TextView
-            android:id="@+id/main_title_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:fontFamily="@font/roboto_light"
-            android:text="Новый заказ"
-            android:textColor="#3C2929"
-            android:textSize="24dp"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
-            app:layout_constraintStart_toStartOf="@id/linearLayout2"
-            app:layout_constraintTop_toTopOf="@id/linearLayout2"/>
+<!--        <TextView-->
+<!--            android:id="@+id/main_title_textView"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center_horizontal"-->
+<!--            android:fontFamily="@font/roboto_light"-->
+<!--            android:text="Новый заказ"-->
+<!--            android:textColor="#3C2929"-->
+<!--            android:textSize="24dp"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/linearLayout2"-->
+<!--            app:layout_constraintStart_toStartOf="@id/linearLayout2"-->
+<!--            app:layout_constraintTop_toTopOf="@id/linearLayout2"/>-->
 
-        <EditText
-            android:id="@+id/option_first_editText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_light"
-            android:textColor="#3C2929"
-            android:textSize="24dp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/option_first_textView"
-            app:layout_constraintEnd_toStartOf="@+id/option_first_button"
-            app:layout_constraintStart_toStartOf="@+id/option_first_textView"
-            app:layout_constraintTop_toTopOf="@+id/option_first_textView" />
+<!--        <EditText-->
+<!--            android:id="@+id/option_first_editText"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/roboto_light"-->
+<!--            android:textColor="#3C2929"-->
+<!--            android:textSize="24dp"-->
+<!--            android:visibility="invisible"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/option_first_textView"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/option_first_button"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/option_first_textView"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/option_first_textView" />-->
 
-        <TextView
-            android:id="@+id/option_first_textView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_light"
-            android:hint="Водонасосная 1"
-            android:paddingStart="4dp"
-            android:paddingTop="9dp"
-            android:textColor="#3C2929"
-            android:textSize="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_title_textView" />
+<!--        <TextView-->
+<!--            android:id="@+id/option_first_textView"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/roboto_light"-->
+<!--            android:hint="Водонасосная 1"-->
+<!--            android:paddingStart="4dp"-->
+<!--            android:paddingTop="9dp"-->
+<!--            android:textColor="#3C2929"-->
+<!--            android:textSize="24dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/main_title_textView" />-->
 
-        <TextView
-            android:id="@+id/inscription_first_TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_light"
-            android:text="клиент"
-            android:textColor="#3C2929"
-            android:textSize="14dp"
-            app:layout_constraintEnd_toEndOf="@+id/option_first_textView"
-            app:layout_constraintTop_toBottomOf="@+id/option_first_textView" />
+<!--        <TextView-->
+<!--            android:id="@+id/inscription_first_TextView"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/roboto_light"-->
+<!--            android:text="клиент"-->
+<!--            android:textColor="#3C2929"-->
+<!--            android:textSize="14dp"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/option_first_textView"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/option_first_textView" />-->
 
-        <ListView
-            android:id="@+id/option_first_listView"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:textColor="#706565"
-            android:textSize="24dp"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@+id/option_first_textView" />
+<!--        <ListView-->
+<!--            android:id="@+id/option_first_listView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="300dp"-->
+<!--            android:textColor="#706565"-->
+<!--            android:textSize="24dp"-->
+<!--            android:visibility="gone"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/option_first_textView" />-->
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/option_first_button"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:background="@drawable/ic_baseline_add_24"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/option_first_textView"
-            app:layout_constraintEnd_toEndOf="@+id/option_first_textView"
-            app:layout_constraintTop_toTopOf="@+id/option_first_textView" />
-        <TextView
-            android:id="@+id/option_second_textView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_light"
-            android:hint="Водонасосная 2"
-            android:textColor="#3C2929"
-            android:textSize="24dp"
-            android:paddingTop="9dp"
-            android:paddingStart="4dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/inscription_first_TextView" />
-        <EditText
-            android:id="@+id/option_second_editText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_light"
-            android:visibility="visible"
-            android:textColor="#3C2929"
-            android:hint="Водонасосная 1"
-            android:textSize="24dp"
-            app:layout_constraintStart_toStartOf="@id/option_second_textView"
-            app:layout_constraintTop_toTopOf="@id/option_second_textView"
-            app:layout_constraintBottom_toBottomOf="@id/option_second_textView"
-            app:layout_constraintEnd_toStartOf="@id/option_second_button"/>
+<!--        <androidx.appcompat.widget.AppCompatImageButton-->
+<!--            android:id="@+id/option_first_button"-->
+<!--            android:layout_width="24dp"-->
+<!--            android:layout_height="24dp"-->
+<!--            android:background="@drawable/ic_baseline_add_24"-->
+<!--            android:visibility="visible"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/option_first_textView"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/option_first_textView"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/option_first_textView" />-->
+<!--        <TextView-->
+<!--            android:id="@+id/option_second_textView"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/roboto_light"-->
+<!--            android:hint="Водонасосная 2"-->
+<!--            android:textColor="#3C2929"-->
+<!--            android:textSize="24dp"-->
+<!--            android:paddingTop="9dp"-->
+<!--            android:paddingStart="4dp"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/inscription_first_TextView" />-->
+<!--        <EditText-->
+<!--            android:id="@+id/option_second_editText"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/roboto_light"-->
+<!--            android:visibility="visible"-->
+<!--            android:textColor="#3C2929"-->
+<!--            android:hint="Водонасосная 1"-->
+<!--            android:textSize="24dp"-->
+<!--            app:layout_constraintStart_toStartOf="@id/option_second_textView"-->
+<!--            app:layout_constraintTop_toTopOf="@id/option_second_textView"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/option_second_textView"-->
+<!--            app:layout_constraintEnd_toStartOf="@id/option_second_button"/>-->
 
-        <TextView
-            android:id="@+id/inscription_second_TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_light"
-            android:text="клиент"
-            android:textColor="#3C2929"
-            android:textSize="14dp"
-            app:layout_constraintEnd_toEndOf="@+id/option_second_textView"
-            app:layout_constraintTop_toBottomOf="@id/option_second_textView"/>
-        <ListView
-            android:id="@+id/option_second_listView"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:textColor="#706565"
-            android:textSize="24dp"
-            android:visibility="visible"
-            app:layout_constraintTop_toBottomOf="@id/option_second_textView" />
+<!--        <TextView-->
+<!--            android:id="@+id/inscription_second_TextView"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/roboto_light"-->
+<!--            android:text="клиент"-->
+<!--            android:textColor="#3C2929"-->
+<!--            android:textSize="14dp"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/option_second_textView"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/option_second_textView"/>-->
+<!--        <ListView-->
+<!--            android:id="@+id/option_second_listView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="300dp"-->
+<!--            android:textColor="#706565"-->
+<!--            android:textSize="24dp"-->
+<!--            android:visibility="visible"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/option_second_textView" />-->
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/option_second_button"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:background="@drawable/ic_baseline_add_24"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@id/option_second_textView"
-            app:layout_constraintEnd_toEndOf="@id/option_second_textView"
-            app:layout_constraintTop_toTopOf="@id/option_second_textView" />
+<!--        <androidx.appcompat.widget.AppCompatImageButton-->
+<!--            android:id="@+id/option_second_button"-->
+<!--            android:layout_width="24dp"-->
+<!--            android:layout_height="24dp"-->
+<!--            android:background="@drawable/ic_baseline_add_24"-->
+<!--            android:visibility="visible"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/option_second_textView"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/option_second_textView"-->
+<!--            app:layout_constraintTop_toTopOf="@id/option_second_textView" />-->
 
 
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_light"
-            android:hint="HP 85а LS240877"
-            android:textColor="#3C2929"
-            android:textSize="24dp" />
+<!--        <EditText-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/roboto_light"-->
+<!--            android:hint="HP 85а LS240877"-->
+<!--            android:textColor="#3C2929"-->
+<!--            android:textSize="24dp" />-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginRight="8dp"
-            android:fontFamily="@font/roboto_light"
-            android:text="картридж"
-            android:textColor="#3C2929"
-            android:textSize="14dp" />
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="right"-->
+<!--            android:layout_marginRight="8dp"-->
+<!--            android:fontFamily="@font/roboto_light"-->
+<!--            android:text="картридж"-->
+<!--            android:textColor="#3C2929"-->
+<!--            android:textSize="14dp" />-->
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_light"
-            android:hint="заправить"
-            android:textColor="#3C2929"
-            android:textSize="24dp" />
+<!--        <EditText-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/roboto_light"-->
+<!--            android:hint="заправить"-->
+<!--            android:textColor="#3C2929"-->
+<!--            android:textSize="24dp" />-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginRight="8dp"
-            android:fontFamily="@font/roboto_light"
-            android:text="работы"
-            android:textColor="#706565"
-            android:textSize="14dp" />
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="right"-->
+<!--            android:layout_marginRight="8dp"-->
+<!--            android:fontFamily="@font/roboto_light"-->
+<!--            android:text="работы"-->
+<!--            android:textColor="#706565"-->
+<!--            android:textSize="14dp" />-->
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/rounded_corner_btn"
-            android:fontFamily="@font/roboto_light"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:text="добавить картридж"
-            android:textAllCaps="false"
-            android:textColor="#706565"
-            android:textSize="18sp" />
+<!--        <androidx.appcompat.widget.AppCompatButton-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center_horizontal"-->
+<!--            android:background="@drawable/rounded_corner_btn"-->
+<!--            android:fontFamily="@font/roboto_light"-->
+<!--            android:paddingLeft="16dp"-->
+<!--            android:paddingRight="16dp"-->
+<!--            android:text="добавить картридж"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:textColor="#706565"-->
+<!--            android:textSize="18sp" />-->
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
     <LinearLayout
         android:id="@+id/linearLayout3"

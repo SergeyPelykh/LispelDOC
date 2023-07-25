@@ -110,7 +110,7 @@ public class WeirdActivity extends AppCompatActivity {
         tonerSelectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(WeirdActivity.this, InsertEntityInBAseActivity.class);
+                Intent intent = new Intent(WeirdActivity.this, CreateOrderActivity.class);
                 intent.putExtra(ID, id);
                 intent.putExtra(MainActivity.MODE, "createNew");
                 intent.putStringArrayListExtra("listEntityFields", (new Client().getNameAllFields()));

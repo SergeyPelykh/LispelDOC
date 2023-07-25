@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.CreateOrderActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/listFieldsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/titleListFields"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_light"
+            android:text="Новый заказ"
+            android:textColor="#3C2929"
+            android:textSize="24dp"
+            app:layout_constraintEnd_toEndOf="@+id/listFieldsLayout"
+            app:layout_constraintStart_toStartOf="@id/listFieldsLayout"
+            app:layout_constraintTop_toTopOf="@id/listFieldsLayout" />
+
+        <TextView
+            android:id="@+id/optionFirstTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_light"
+            android:hint="Водонасосная 1"
+            android:paddingStart="4dp"
+            android:paddingTop="9dp"
+            android:textColor="#3C2929"
+            android:textSize="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleListFields" />
+
+        <EditText
+            android:id="@+id/optionFirstEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_light"
+            android:hint="Водонасосная 1"
+            android:textColor="#3C2929"
+            android:textSize="24dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleListFields"  />
+
+        <TextView
+            android:id="@+id/inscriptionFirstTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_light"
+            android:text="клиент"
+            android:textColor="#3C2929"
+            android:textSize="14dp"
+            app:layout_constraintTop_toBottomOf="@+id/optionFirstTextView"
+            app:layout_constraintEnd_toEndOf="@id/optionFirstTextView"/>
+
+        <ListView
+            android:id="@+id/optionFirstListView"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:textColor="#706565"
+            android:visibility="gone"
+            android:textSize="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/optionFirstTextView" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/optionFirstButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/ic_baseline_add_24"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/optionFirstTextView"
+            app:layout_constraintEnd_toEndOf="@+id/optionFirstTextView"
+            app:layout_constraintTop_toTopOf="@+id/optionFirstTextView" />
+
+        <TextView
+            android:id="@+id/optionSecondTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_light"
+            android:hint="HP85a"
+            android:paddingStart="4dp"
+            android:paddingTop="9dp"
+            android:textColor="#3C2929"
+            android:textSize="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/optionFirstListView" />
+
+        <EditText
+            android:id="@+id/optionSecondEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_light"
+            android:hint="HP85a"
+            android:textColor="#3C2929"
+            android:textSize="24dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inscriptionFirstTextView"  />
+
+        <TextView
+            android:id="@+id/inscriptionSecondTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_light"
+            android:text="картридж"
+            android:textColor="#3C2929"
+            android:textSize="14dp"
+            app:layout_constraintTop_toBottomOf="@+id/optionSecondTextView"
+            app:layout_constraintEnd_toEndOf="@id/optionSecondTextView"/>
+
+        <ListView
+            android:id="@+id/optionSecondListView"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:textColor="#706565"
+            android:visibility="gone"
+            android:textSize="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/optionSecondTextView" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/optionSecondButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/ic_baseline_add_24"
+            android:visibility="invisible"
+
+            app:layout_constraintBottom_toBottomOf="@+id/optionSecondTextView"
+            app:layout_constraintEnd_toEndOf="@+id/optionSecondTextView"
+            app:layout_constraintTop_toTopOf="@+id/optionSecondTextView"  />
+
+        <TextView
+            android:id="@+id/optionThirdTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_light"
+            android:hint="Заправить"
+            android:paddingStart="4dp"
+            android:paddingTop="9dp"
+            android:textColor="#3C2929"
+            android:textSize="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/optionSecondListView" />
+
+        <EditText
+            android:id="@+id/optionThirdEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_light"
+            android:hint="Заправить"
+            android:textColor="#3C2929"
+            android:textSize="24dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inscriptionSecondTextView"  />
+
+        <TextView
+            android:id="@+id/inscriptionThirdTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_light"
+            android:text="работы"
+            android:textColor="#3C2929"
+            android:textSize="14dp"
+            app:layout_constraintTop_toBottomOf="@+id/optionThirdTextView"
+            app:layout_constraintEnd_toEndOf="@id/optionThirdTextView"/>
+
+        <ListView
+            android:id="@+id/optionThirdListView"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:textColor="#706565"
+            android:visibility="gone"
+            android:textSize="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/optionThirdTextView" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/optionThirdButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/ic_baseline_add_24"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/optionThirdTextView"
+            app:layout_constraintEnd_toEndOf="@+id/optionThirdTextView"
+            app:layout_constraintTop_toTopOf="@+id/optionThirdTextView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

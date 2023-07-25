@@ -12,7 +12,7 @@ import java.util.List;
 @Dao
 public interface ClientDAO {
     @Insert
-    void insert(Client sticker);
+    Long insert(Client sticker);
 
     @Query("SELECT * FROM client_table")
     LiveData<List<Client>> getAllClients();

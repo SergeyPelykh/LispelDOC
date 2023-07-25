@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.lispel.lispeldoc.newVersion.DAO.CartridgeDAO;
+
 import com.lispel.lispeldoc.newVersion.DAO.ClientLispelPersonDAO;
 import com.lispel.lispeldoc.newVersion.DAO.StickerLispelDAO;
 import com.lispel.lispeldoc.newVersion.DAO.TonerDAO;
@@ -14,6 +14,7 @@ import com.lispel.lispeldoc.newVersion.models.Cartridge;
 import com.lispel.lispeldoc.newVersion.models.ClientLispelPerson;
 import com.lispel.lispeldoc.newVersion.models.StickerLispel;
 import com.lispel.lispeldoc.newVersion.models.Toner;
+import com.lispel.lispeldoc.secondVersion.dao.CartridgeDAO;
 import com.lispel.lispeldoc.secondVersion.dao.ClientDAO;
 import com.lispel.lispeldoc.secondVersion.dao.ComponentDAO;
 import com.lispel.lispeldoc.secondVersion.dao.StickerDAO;
@@ -31,7 +32,7 @@ public abstract class LispelDataBase extends RoomDatabase {
     public abstract ComponentDAO componentDAO();
     public abstract com.lispel.lispeldoc.secondVersion.dao.TonerDAO tonerDAOSecond();
     public abstract StickerDAO stickerDAO();
-    public abstract com.lispel.lispeldoc.secondVersion.dao.CartridgeDAO cartridgeDAOSecond();
+    //public abstract com.lispel.lispeldoc.secondVersion.dao.CartridgeDAO cartridgeDAOSecond();
     public abstract StickerLispelDAO stickerLispelDAO();
     public abstract ClientLispelPersonDAO clientLispelPersonDAO();
     public abstract CartridgeDAO cartridgeDAO();

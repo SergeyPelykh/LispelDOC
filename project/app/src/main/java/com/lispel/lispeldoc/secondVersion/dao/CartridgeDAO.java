@@ -15,7 +15,7 @@ import java.util.List;
 @Dao
 public interface CartridgeDAO {
     @Insert
-    void insert(Cartridge cartridge);
+    Long insert(Cartridge cartridge);
 
     @Update
     void update(Cartridge cartridge);
@@ -26,6 +26,9 @@ public interface CartridgeDAO {
     @Query("SELECT * FROM cartridge_table_second WHERE model LIKE :model")
     LiveData<Cartridge> getCartridgeByModel(String model);
 
+    @Query("SELECT * FROM cartridge_table_second WHERE owner = :owner")
+    LiveData<Cartridge> getCartridgeByOwner(Long owner);
+
     @Query("UPDATE cartridge_table_second SET stickers = :stickers WHERE id = :id")
     void updateStickers(String stickers, Long id);
 
@@ -34,5 +37,9 @@ public interface CartridgeDAO {
 
     @Query("SELECT * FROM cartridge_table_second WHERE id = :id")
     LiveData<Cartridge> getCartridgeById(long id);
+    @Query("SELECT * FROM cartridge_table_second WHERE stickers = :sticker")
+    LiveData<Cartridge> getCartridgeBySticker(String sticker);
 
+    @Query("SELECT stickers FROM cartridge_table_second WHERE stickers LIKE :stickers")
+    LiveData<List<String>>getNamesByName(String stickers);
 }

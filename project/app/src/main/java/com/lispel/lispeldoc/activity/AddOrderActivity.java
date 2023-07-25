@@ -74,20 +74,20 @@ public class AddOrderActivity extends AppCompatActivity {
 
         //optionFirstEditText = findViewById(R.id.option_first_editText);
         optionFirstEditText2 = findViewById(R.id.option_first_editText2);
-        inscriptionFirstTextView = findViewById(R.id.inscription_first_TextView);
-        inscriptionSecondTextView = findViewById(R.id.inscription_second_TextView);
+//        inscriptionFirstTextView = findViewById(R.id.inscription_first_TextView);
+//        inscriptionSecondTextView = findViewById(R.id.inscription_second_TextView);
         //optionFirstListView = findViewById(R.id.option_first_listView);
         optionFirstListView2 = findViewById(R.id.option_first_listView2);
         //optionFirstButton = findViewById(R.id.option_first_button);
         optionFirstButton2 = findViewById(R.id.option_first_button2);
-        optionFirstTextView = findViewById(R.id.option_first_textView);
-        mainTitleTextView = findViewById(R.id.main_title_textView);
+//        optionFirstTextView = findViewById(R.id.option_first_textView);
+//        mainTitleTextView = findViewById(R.id.main_title_textView);
         secondTitleTextView = findViewById(R.id.second_title_textView2);
-        constraintLayout = findViewById(R.id.linearLayout2);
+//        constraintLayout = findViewById(R.id.linearLayout2);
         constraintLayout2 = findViewById(R.id.linearLayout4);
 
 //        optionSecondButton = findViewById(R.id.option_second_button);
-        optionSecondTextView = findViewById(R.id.option_second_textView);
+//        optionSecondTextView = findViewById(R.id.option_second_textView);
 
         toFillOptionFromBase(optionSecondTextView,
                 inscriptionSecondTextView,

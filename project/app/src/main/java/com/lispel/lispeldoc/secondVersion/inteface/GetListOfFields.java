@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface GetListOfFields {
     ArrayList<String> getNameAllFields();
+    long getId();
 }

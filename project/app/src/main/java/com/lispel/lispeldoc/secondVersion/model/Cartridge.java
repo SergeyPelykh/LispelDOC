@@ -1,17 +1,24 @@
 package com.lispel.lispeldoc.secondVersion.model;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
 import com.lispel.lispeldoc.model.utility.Convert;
+import com.lispel.lispeldoc.secondVersion.inteface.GetListOfFields;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 @Entity(tableName = "cartridge_table_second")
 @TypeConverters({Convert.class})
-public class Cartridge {
+public class Cartridge implements GetListOfFields {
     @PrimaryKey(autoGenerate = true)
     private long id;
     private String model;
@@ -81,5 +88,12 @@ public class Cartridge {
 
     public void addOwner(long owner) {
         this.owner = owner;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public ArrayList<String> getNameAllFields() {
+        ArrayList<String> result = Stream.of("модель", "1", "вендор", "1", "оригинальность", "1", "владелец", "3", "стикер",  "1").collect(Collectors.toCollection(ArrayList::new));
+        return result;
     }
 }

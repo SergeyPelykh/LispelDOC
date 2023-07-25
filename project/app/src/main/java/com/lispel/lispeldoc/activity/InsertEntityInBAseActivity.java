@@ -4,9 +4,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.KeyEvent;
@@ -39,9 +43,6 @@ public class InsertEntityInBAseActivity extends AppCompatActivity {
 
         ArrayList<String> extra = getIntent().getStringArrayListExtra("listEntityFields");
 
-        RepositoryService clientRepository = new ClientRepository(getApplication());
-
-        
         TextView title = findViewById(R.id.addEntityTitleTextView);
         title.setText(getIntent().getStringExtra("titleActivity"));
 
@@ -99,13 +100,47 @@ public class InsertEntityInBAseActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     RepositoryService repository = null;
+                                    String result = null;
+                                    String typeEntity = null;
                                     switch (getIntent().getStringExtra("repository")){
                                         case "client":
                                             repository = new ClientRepository(getApplication());
+                                            result = CreateOrderActivity.CLIENT_ID;
+                                            typeEntity = "1";
+                                            break;
+                                        case "cartridge":
+                                            repository = new CartridgeRepository(getApplication());
+                                            result = CreateOrderActivity.CARTRIDGE_ID;
+                                            typeEntity = "2";
                                             break;
                                     }
-                                    repository.insertNewEntityInBase(valueFields);
-                                    onBackPressed();
+                                    MutableLiveData<Long> liveData = new MutableLiveData<Long>();
+                                    RepositoryService finalRepository = repository;
+                                    Thread thread = new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            System.out.println(valueFields);
+                                            Long id = finalRepository.insertNewEntityInBase(valueFields);
+                                            System.out.println(id + "- id new cartridge");
+                                            liveData.postValue(id);
+                                            //finalRepository.insertNewEntityInBase(valueFields);
+                                        }
+                                    });
+                                    thread.start();
+                                    String finalResult = result;
+                                    String finalTypeEntity = typeEntity;
+                                    liveData.observe(InsertEntityInBAseActivity.this, new Observer<Long>() {
+                                        @Override
+                                        public void onChanged(Long aLong) {
+                                            Intent intent = new Intent();
+                                            intent.putExtra(CreateOrderActivity.FIELD_VALUE, visionTextViews.get(0).getText().toString());
+                                            intent.putExtra(CreateOrderActivity.TYPE_ENTITY, finalTypeEntity);
+                                            intent.putExtra(finalResult, liveData.getValue());
+                                            setResult(RESULT_OK, intent);
+                                            onBackPressed();
+                                        }
+                                    });
+
                                 }
                             })
                             .setNegativeButton("отмена", new DialogInterface.OnClickListener() {
@@ -120,13 +155,13 @@ public class InsertEntityInBAseActivity extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                new AlertDialog.Builder(InsertEntityInBAseActivity.this)
-//                        .setMessage(extra.toString())
-//                        .show();
                 onBackPressed();
             }
         });
 
+
+    }
+    private void insertEntityInBase(){
 
     }
 

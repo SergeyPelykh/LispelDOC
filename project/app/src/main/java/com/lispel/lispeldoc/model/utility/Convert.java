@@ -96,7 +96,7 @@ public class Convert {
     @TypeConverter
     public static ArrayList<Long> StringToListOfLong(String str){
         ArrayList<Long> arr = new ArrayList<>();
-        if (!str.equals("")) {
+        if (!(str.equals(""))) {
             stringToArrLong(str, arr);
         }
         return arr;
