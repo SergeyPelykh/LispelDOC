@@ -133,7 +133,7 @@ public class CreateOrderActivity extends AppCompatActivity {
                             optionSecondTextView.setText(x.getStickers() + " (" + x.getModel() + ")");
                             optionFirstButton.setVisibility(View.INVISIBLE);
                         } else {
-                            optionSecondTextView.setText("У клиента нет картриджа");
+                            optionSecondTextView.setText("У клиента еще нет картриджа");
                         }
                     });
                 }

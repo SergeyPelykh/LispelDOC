@@ -94,7 +94,7 @@ public class InsertEntityInBAseActivity extends AppCompatActivity {
                         stringBuilder.append(": " + temp + "\n");
                     }
 
-                    new AlertDialog.Builder(InsertEntityInBAseActivity.this).setTitle("Добавить новую запись в базу?")
+                    new AlertDialog.Builder(InsertEntityInBAseActivity.this).setTitle("Добавить Новую запись в базу?")
                             .setMessage(stringBuilder.toString())
                             .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                                 @Override

@@ -99,7 +99,7 @@ public class AddOrderActivity extends AppCompatActivity {
                 optionFirstTextView,
                 inscriptionFirstTextView,
                 "Клиент",
-                "Водонасосная 1",
+                "Водонасосная 41",
                 clientRepository);
 
 
