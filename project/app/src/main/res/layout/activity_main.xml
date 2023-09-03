@@ -21,16 +21,34 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:paddingBottom="16dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/recyclerview">
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/add_order_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="add"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/new_29_07_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="29.07 version"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/fill_base_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="base"/>
 
         <ImageButton
             android:id="@+id/button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="16dp"
-            android:layout_gravity="right"
+            android:layout_marginLeft="100dp"
             android:background="@drawable/ic_baseline_add_circle_outline_24"
             />
     </LinearLayout>

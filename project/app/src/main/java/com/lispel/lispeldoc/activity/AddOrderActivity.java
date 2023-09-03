@@ -86,9 +86,6 @@ public class AddOrderActivity extends AppCompatActivity {
 //        constraintLayout = findViewById(R.id.linearLayout2);
         constraintLayout2 = findViewById(R.id.linearLayout4);
 
-//        optionSecondButton = findViewById(R.id.option_second_button);
-//        optionSecondTextView = findViewById(R.id.option_second_textView);
-
         toFillOptionFromBase(optionSecondTextView,
                 inscriptionSecondTextView,
                 "Картридж",
@@ -276,68 +273,6 @@ public class AddOrderActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         insertOptionInOrder(layoutMain, layoutSecond,valueEdit,controlImage,titleSecondLayout, repository);
                     }
-//                        ConstraintLayout addEntityLinearLayout = findViewById(R.id.addEntityLinearLayout);
-//                        addEntityLinearLayout.setVisibility(View.VISIBLE);
-//                        layoutMain.setVisibility(View.INVISIBLE);
-//                        layoutSecond.setVisibility(View.INVISIBLE);
-//                        hideKeyboard(context, valueEdit);
-//                        TextView visionField = findViewById(R.id.add_entity_field_textView);
-//                        TextView titleField = findViewById(R.id.inscription_add_entity_field_TextView);
-//                        EditText inputField = findViewById(R.id.add_entity_field_editText);
-//                        addInputField(context,visionField, inputField, titleField, InputType.TYPE_CLASS_TEXT);
-//                        TextView visionField2 = findViewById(R.id.add_entity_field2_textView);
-//                        TextView titleField2 = findViewById(R.id.inscription_add_entity_field2_TextView);
-//                        EditText inputField2 = findViewById(R.id.add_entity_field2_editText);
-//                        addInputField(context,visionField2, inputField2, titleField2, InputType.TYPE_CLASS_TEXT);
-//                        TextView visionField3 = findViewById(R.id.add_entity_field3_textView);
-//                        TextView titleField3 = findViewById(R.id.inscription_add_entity_field3_TextView);
-//                        EditText inputField3 = findViewById(R.id.add_entity_field3_editText);
-//                        addInputField(context,visionField3, inputField3, titleField3, InputType.TYPE_CLASS_TEXT);
-//                        TextView visionField4 = findViewById(R.id.add_entity_field4_textView);
-//                        TextView titleField4 = findViewById(R.id.inscription_add_entity_field4_TextView);
-//                        EditText inputField4 = findViewById(R.id.add_entity_field4_editText);
-//                        addInputField(context,visionField4, inputField4, titleField4, InputType.TYPE_CLASS_PHONE);
-//                        TextView visionField5 = findViewById(R.id.add_entity_field5_textView);
-//                        TextView titleField5 = findViewById(R.id.inscription_add_entity_field5_TextView);
-//                        EditText inputField5 = findViewById(R.id.add_entity_field5_editText);
-//                        visionField5.setText("физическое лицо");
-//                        addInputField(context,visionField5, inputField5, titleField5, InputType.TYPE_CLASS_PHONE);
-//
-//                        AppCompatButton cancelButton = findViewById(R.id.cancel_add_entity_in_base_button);
-//                        cancelButton.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View view) {
-//                                addEntityLinearLayout.setVisibility(View.INVISIBLE);
-//                                layoutMain.setVisibility(View.VISIBLE);
-//                                layoutSecond.setVisibility(View.VISIBLE);
-//                                controlImage.setVisibility(View.INVISIBLE);
-//                                valueEdit.setVisibility(View.INVISIBLE);
-//                                //visionField.setVisibility(View.INVISIBLE);
-//                                //titleField.setVisibility(View.INVISIBLE);
-//                                titleSecondLayout.setVisibility(View.INVISIBLE);
-//                            }
-//                        });
-//
-//                        AppCompatButton button = findViewById(R.id.add_entity_in_base_button);
-//                        button.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View view) {
-//                                if (reviseInputField(visionField.getText().toString(), titleField.getText().toString()) &&
-//                                        reviseInputField(visionField2.getText().toString(), titleField2.getText().toString()) &&
-//                                        reviseInputField(visionField3.getText().toString(), titleField3.getText().toString()) &&
-//                                        reviseInputField(visionField4.getText().toString(), titleField4.getText().toString()) &&
-//                                        reviseInputField(visionField5.getText().toString(), titleField5.getText().toString())) {
-//                                    Client client = new Client();
-//                                    client.setName(visionField.getText().toString());
-//                                    client.setFullName(visionField2.getText().toString());
-//                                    client.setAddress(visionField3.getText().toString());
-//                                    client.setPhone(visionField4.getText().toString());
-//                                    client.setType(visionField5.getText().toString());
-//                                    repository.insert(client);
-//                                }
-//                            }
-//                        });
-//                    }
                 });
 
 

@@ -40,6 +40,6 @@ public interface CartridgeDAO {
     @Query("SELECT * FROM cartridge_table_second WHERE stickers = :sticker")
     LiveData<Cartridge> getCartridgeBySticker(String sticker);
 
-    @Query("SELECT stickers FROM cartridge_table_second WHERE stickers LIKE :stickers")
-    LiveData<List<String>>getNamesByName(String stickers);
+    @Query("SELECT model FROM cartridge_table_second WHERE model LIKE :model")
+    LiveData<List<String>>getNamesByName(String model);
 }

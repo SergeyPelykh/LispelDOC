@@ -1,11 +1,17 @@
 package com.lispel.lispeldoc.activity;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,22 +26,79 @@ import com.lispel.lispeldoc.R;
 import com.lispel.lispeldoc.model.lispel.WeirdClass;
 import com.lispel.lispeldoc.model.lispel.WeirdClassListAdapter;
 import com.lispel.lispeldoc.model.lispel.WeirdClassModel;
+import com.lispel.lispeldoc.secondVersion.model.Cartridge;
+import com.lispel.lispeldoc.secondVersion.model.Client;
+import com.lispel.lispeldoc.secondVersion.model.Street;
+import com.lispel.lispeldoc.secondVersion.repositoriy.CartridgeRepository;
+import com.lispel.lispeldoc.secondVersion.repositoriy.ClientRepository;
+import com.lispel.lispeldoc.secondVersion.repositoriy.FieldRepository;
+import com.lispel.lispeldoc.secondVersion.repositoriy.StreetRepository;
+import com.lispel.lispeldoc.secondVersion.uiServices.Field;
+
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    static final String FIELD_VALUE = "valueField";
+    static final ArrayList<String> FIELDS = new ArrayList<>(Arrays.asList(
+            "field1",
+            "field2",
+            "field3",
+            "field4",
+            "field5",
+            "field6"
+    ));
+    static final String FIELD_1 = "field1";
+    static final String FIELD_2 = "field2";
+    static final String FIELD_3 = "field3";
+    static final String FIELD_4 = "field4";
+    static final String FIELD_5 = "field5";
+    static final String NAME_ENTITY = "nameEntity";
     static final String ID = "id";
     static final String MODE = "mode";
     private ImageButton submitButton;
+    private Button newButton;
+    private Button addButton;
+    private Button fillBaseButton;
     private WeirdClassModel weirdClassModel;
+
+    ActivityResultLauncher<Intent> startForResult = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK){
+                        Intent intent = result.getData();
+                        String valueField = intent.getStringExtra(FIELD_VALUE);
+                    }
+                }
+            }
+    );
+
+    ActivityResultLauncher<Intent> startForNewOrder = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK){
+                        Intent intent = result.getData();
+                        String valueField = intent.getStringExtra(FIELD_VALUE);
+                    }
+                }
+            }
+    );
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -88,6 +151,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        StreetRepository streetRepository = new StreetRepository(getApplication(), "street");
+        FieldRepository fieldRepository = new FieldRepository(getApplication());
+        CartridgeRepository cartridgeRepository = new CartridgeRepository(getApplication());
+        ClientRepository clientRepository = new ClientRepository(getApplication());
+
+
         weirdClassModel = new ViewModelProvider(this).get(WeirdClassModel.class);
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         final WeirdClassListAdapter adapter = new WeirdClassListAdapter(new WeirdClassListAdapter.StickerNumberDiff(), this);
@@ -98,6 +168,175 @@ public class MainActivity extends AppCompatActivity {
                 adapter.submitList(weirdClasses);
             }
         });
+        newButton = findViewById(R.id.new_29_07_button);
+        cartridgeRepository.getAllCartridges().observe(MainActivity.this, x -> {
+            if (x == null){
+                newButton.setText("nothing cartridges");
+            }
+            else {
+                newButton.setText(x.size() + " cartridges");
+            }
+        });
+        newButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clientRepository.getAllClients().observe(MainActivity.this, x -> {
+                    fillBaseButton.setText(fillBaseButton.getText() + " " + x.size() + "cl");
+                });
+                Intent intent = new Intent(MainActivity.this, CreateOrderDialogActivity.class);
+                intent.putExtra(FIELD_1, "address");
+                intent.putExtra(FIELD_2, "clientType");
+                intent.putExtra(FIELD_3, "cartridge");
+                intent.putExtra(NAME_ENTITY, "new entity");
+                startForResult.launch(intent);
+
+            }
+        });
+
+
+
+        fillBaseButton = findViewById(R.id.fill_base_button);
+
+        streetRepository.getAllStreets().observe(MainActivity.this, x -> {
+            if (x.size() == 0){
+                fillBaseButton.setText("base empty");
+            }
+        });
+
+        fillBaseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CreateOrderDialogActivity.class);
+                //intent.putExtra(FIELD_1, "address");
+                startForResult.launch(intent);
+                streetRepository.getAllStreets().observe(MainActivity.this, x -> {
+                    if (x.size() == 0){
+                        String line = "";
+                        try(
+                                BufferedReader bufferedReader = new BufferedReader(
+                                new InputStreamReader(getAssets().open("streets.txt"))))
+                        {
+                            while ((line = bufferedReader.readLine()) != null){
+                                streetRepository.insert(new Street("street", line));
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        fillBaseButton.setText(x.size() + " str");
+                    }
+                });
+
+
+                cartridgeRepository.getAllCartridges().observe(MainActivity.this, x -> {
+                    if (x.size() == 0){
+
+                        Client client = new Client();
+                        client.setName("Акватория");
+                        client.setAddress("Ленина 26");
+                        client.setFullName("ООО Акватория");
+                        client.setPhone("888888888");
+                        client.setType("Организация");
+                        Thread thread1 = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                clientRepository.insert(client);
+                            }
+                        });
+                        thread1.start();
+
+                        for (int i = 0; i < 20; i++){
+                            Cartridge cartridge2 = new Cartridge();
+                            cartridge2.setModel("HP " + i);
+                            cartridge2.setVendor("HP");
+                            Thread thread = new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    cartridgeRepository.insert(cartridge2);
+                                }
+                            });
+                            thread.start();
+                        }
+
+
+
+                        StreetRepository streetRepository1 = new StreetRepository(
+                                getApplication(), "clientType");
+                        streetRepository1.insert(new Street(
+                                "clientType", "организация"));
+                        streetRepository1.insert(new Street(
+                                "clientType", "физическое лицо"));
+
+                        Field address = new Field();
+                        address.setName("address");
+                        address.setHint("адрес");
+                        address.setInscription("адрес клиента");
+                        address.setDataSource("street");
+                        address.setInputType(1);
+
+                        Field clientType = new Field();
+                        clientType.setName("clientType");
+                        clientType.setHint("организация/физик");
+                        clientType.setInscription("тип клиента");
+                        clientType.setDataSource("clientType");
+                        clientType.setInputType(1);
+
+
+                        Field cartridge = new Field();
+                        cartridge.setName("cartridge");
+                        cartridge.setHint("модель картриджа");
+                        cartridge.setInscription("картридж");
+                        cartridge.setDataSource("cartridge");
+                        cartridge.setInputType(1);
+
+                        Field clientField = new Field();
+                        clientField.setName("client");
+                        clientField.setHint("имя клиента");
+                        clientField.setInscription("клиент");
+                        clientField.setDataSource("client");
+                        clientField.setInputType(1);
+
+                        Field name = new Field();
+                        name.setName("name");
+                        name.setHint("имя");
+                        name.setInscription("имя");
+                        name.setDataSource("none");
+                        name.setInputType(1);
+
+                        Field fullName = new Field();
+                        fullName.setName("fullName");
+                        fullName.setHint("полное имя");
+                        fullName.setInscription("полное имя");
+                        fullName.setDataSource("none");
+                        fullName.setInputType(1);
+
+                        Field phone = new Field();
+                        phone.setName("phone");
+                        phone.setHint("номер телефона");
+                        phone.setInscription("номер телефона");
+                        phone.setDataSource("none");
+                        phone.setInputType(3);
+
+                        fieldRepository.insert(address);
+                        fieldRepository.insert(clientType);
+                        fieldRepository.insert(cartridge);
+                        fieldRepository.insert(clientField);
+                        fieldRepository.insert(name);
+                        fieldRepository.insert(fullName);
+                        fieldRepository.insert(phone);
+                    }
+                });
+
+
+
+
+
+
+
+            }
+        });
+
+
         submitButton = findViewById(R.id.button);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -112,7 +351,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        addButton = findViewById(R.id.add_order_button);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CreateOrderDialogActivity.class);
+                intent.putExtra(FIELD_1, "client");
+                startForNewOrder.launch(intent);
+            }
+        });
     }
+
+
 
     static int compareWeirdClass(WeirdClass a, WeirdClass b) {
         return a.getId() - b.getId();

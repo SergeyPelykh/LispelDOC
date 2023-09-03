@@ -7,14 +7,24 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.lispel.lispeldoc.secondVersion.inteface.GetListOfFields;
+import com.lispel.lispeldoc.secondVersion.inteface.ListedFields;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Entity(tableName = "client_table")
-public class Client implements GetListOfFields {
+public class Client implements GetListOfFields, ListedFields {
+    private static ArrayList<String> fields = new ArrayList<>(Arrays.asList("name", "fullName",
+            "address", "phone", "clientType"));
+
+    @Override
+    public ArrayList<String> getListOfField() {
+        return fields;
+    }
+
     @PrimaryKey(autoGenerate = true)
     private long id;
     private String name;
@@ -86,4 +96,6 @@ public class Client implements GetListOfFields {
         ArrayList<String> result = Stream.of("имя", "1", "полное имя", "1", "адрес", "1", "телефон", "3", "тип",  "1").collect(Collectors.toCollection(ArrayList::new));
         return result;
     }
+
+
 }

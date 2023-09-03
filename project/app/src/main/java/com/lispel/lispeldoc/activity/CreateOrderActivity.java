@@ -66,7 +66,8 @@ public class CreateOrderActivity extends AppCompatActivity {
     ListView optionThirdListView;
 
 
-        ActivityResultLauncher<Intent> startForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+        ActivityResultLauncher<Intent> startForResult = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
