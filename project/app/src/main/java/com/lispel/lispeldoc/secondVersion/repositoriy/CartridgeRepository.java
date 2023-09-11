@@ -93,4 +93,9 @@ public class CartridgeRepository implements RepositoryService{
         cartridge.addSticker(Long.parseLong(fields.get(4)));
         return cartridgeDAO.insert(cartridge);
     }
+
+    @Override
+    public ArrayList<String> getListOfFields() {
+        return new ArrayList<>(Arrays.asList("client"));
+    }
 }

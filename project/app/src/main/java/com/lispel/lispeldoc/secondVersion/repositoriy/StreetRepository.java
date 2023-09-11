@@ -60,4 +60,9 @@ public class StreetRepository implements RepositoryService {
     public Long insertNewEntityInBase(ArrayList<String> fields) {
         return null;
     }
+
+    @Override
+    public ArrayList<String> getListOfFields() {
+        return null;
+    }
 }

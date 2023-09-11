@@ -12,4 +12,5 @@ public interface RepositoryService {
     LiveData<? extends GetListOfFields> findByStringField(String field);
     Long insert(GetListOfFields getListOfFields);
     Long insertNewEntityInBase(ArrayList<String> fields);
+    ArrayList<String> getListOfFields();
 }

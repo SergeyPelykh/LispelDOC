@@ -11,6 +11,7 @@ import com.lispel.lispeldoc.secondVersion.inteface.GetListOfFields;
 import com.lispel.lispeldoc.secondVersion.model.Client;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ClientRepository implements RepositoryService {
@@ -34,6 +35,12 @@ public class ClientRepository implements RepositoryService {
         client.setType(fields.get(4));
 
         return insert(client);
+    }
+
+    @Override
+    public ArrayList<String> getListOfFields() {
+        return new ArrayList<>(Arrays.asList("name", "fullName",
+                "address", "phone", "clientType"));
     }
 
     public LiveData<List<Client>> getAllClients(){
@@ -67,5 +74,19 @@ public class ClientRepository implements RepositoryService {
     @Override
     public Long insert(GetListOfFields getListOfFields) {
         return insert((Client) getListOfFields);
+    }
+
+    public Long insertNewEntity(ArrayList<String> properties){
+        if (Client.getNameFields().size() == properties.size()) {
+            Client client = new Client();
+            client.setName(properties.get(0));
+            client.setFullName(properties.get(1));
+            client.setAddress(properties.get(2));
+            client.setPhone(properties.get(3));
+            client.setType(properties.get(4));
+            return insert(client);
+        }else {
+            throw new IndexOutOfBoundsException("size of Array with properties not equal to new Entity");
+        }
     }
 }

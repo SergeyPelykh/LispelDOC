@@ -1,13 +1,18 @@
 
 package com.lispel.lispeldoc.activity;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,26 +25,28 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lispel.lispeldoc.R;
 import com.lispel.lispeldoc.model.utility.RepositoryService;
-import com.lispel.lispeldoc.secondVersion.dao.StreetDAO;
 import com.lispel.lispeldoc.secondVersion.inteface.ListedFields;
 import com.lispel.lispeldoc.secondVersion.model.Client;
 import com.lispel.lispeldoc.secondVersion.repositoriy.CartridgeRepository;
 import com.lispel.lispeldoc.secondVersion.repositoriy.ClientRepository;
 import com.lispel.lispeldoc.secondVersion.repositoriy.FieldRepository;
 import com.lispel.lispeldoc.secondVersion.repositoriy.StreetRepository;
-import com.lispel.lispeldoc.secondVersion.uiServices.Field;
+import com.lispel.lispeldoc.secondVersion.uiServices.FieldSetViews;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CreateOrderDialogActivity extends AppCompatActivity {
 
     FieldRepository fieldRepository = new FieldRepository(getApplication());
+    ArrayList<String> fieldsFromIntent = new ArrayList<>();
     ArrayList<FieldSetViews> fields = new ArrayList<>();
+    HashMap<String, FieldSetViews> fieldsMap = new HashMap<>();
 
     @SuppressLint("WrongConstant")
     @Override
@@ -52,8 +59,61 @@ public class CreateOrderDialogActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         );
 
+        Intent intent = getIntent();
+        String titleOfNewEntity = "nothing";
+        String nameOfClassNewEntity = intent.getStringExtra(MainActivity.NAME_ENTITY);
+        if (nameOfClassNewEntity != null) {
+            switch (nameOfClassNewEntity) {
+                case "client":
+                    titleOfNewEntity = "Клиент";
+                    break;
+                case "order":
+                    titleOfNewEntity = "Заказ";
+            }
+            ;
+        }
+        RepositoryService repository = getRepositoryNewEntity(getApplication(), nameOfClassNewEntity);
+        ArrayList<String> fieldsOfNewEntity = repository.getListOfFields();
+        AppCompatButton addEntityInBase = findViewById(R.id.add_entity_in_base_button);
+        addEntityInBase.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View v) {
+                MutableLiveData<Long> idNewEntity = new MutableLiveData<Long>();
+
+                ArrayList<String> properties = new ArrayList<>();
+                    for (int i = 0; i < repository.getListOfFields().size(); i++) {
+                        properties.add(fieldsMap.get(repository.getListOfFields().get(i)).getName().getText().toString());
+                }
+
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        idNewEntity.postValue(repository.insertNewEntityInBase(properties));
+
+                    }
+                });
+                thread.start();
+                idNewEntity.observe(CreateOrderDialogActivity.this, x -> {
+                    Toast.makeText(CreateOrderDialogActivity.this, "insert with id: " + x, Toast.LENGTH_SHORT)
+                            .show();
+                });
+            }
+        });
+        ConstraintLayout mainLayout = findViewById(R.id.addEntityLinearLayout);
+        mainLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!fields.isEmpty()){
+                    for (FieldSetViews f : fields) {
+                        f.removeFocus(CreateOrderDialogActivity.this);
+                    }
+                }
+            }
+        });
+
         TextView title = findViewById(R.id.addEntityTitleTextView);
-        title.setText(getIntent().getStringExtra(MainActivity.NAME_ENTITY));
+        title.setText(titleOfNewEntity);
 
         ArrayList<ListView> baseOptionListViews = new ArrayList<>();
         baseOptionListViews.add(findViewById(R.id.add_entity_field_ListView));
@@ -103,64 +163,74 @@ public class CreateOrderDialogActivity extends AppCompatActivity {
             i.setVisibility(View.INVISIBLE);
         }
 
-        Intent intent = getIntent();
-        String firstField = intent.getStringExtra(MainActivity.FIELD_1);
-        if (firstField != null) {
+        for (int i = 0; i < fieldsOfNewEntity.size(); i++) {
             inputFieldService(CreateOrderDialogActivity.this,
-                    visionTextViews.get(0),
-                    inscriptionTextViews.get(0),
-                    inputEditTexts.get(0),
-                    baseOptionListViews.get(0),
-                    addImageButtons.get(0),
-                    firstField
-            );
+                    visionTextViews.get(i),
+                    inscriptionTextViews.get(i),
+                    inputEditTexts.get(i),
+                    baseOptionListViews.get(i),
+                    addImageButtons.get(i),
+                    fieldsOfNewEntity.get(i));
         }
 
-        String secondField = intent.getStringExtra(MainActivity.FIELD_2);
-        if (secondField != null) {
-            inputFieldService(CreateOrderDialogActivity.this,
-                    visionTextViews.get(1),
-                    inscriptionTextViews.get(1),
-                    inputEditTexts.get(1),
-                    baseOptionListViews.get(1),
-                    addImageButtons.get(1),
-                    secondField
-            );
-        }
-        String thirdField = intent.getStringExtra(MainActivity.FIELD_3);
-        if (thirdField != null) {
-            inputFieldService(CreateOrderDialogActivity.this,
-                    visionTextViews.get(2),
-                    inscriptionTextViews.get(2),
-                    inputEditTexts.get(2),
-                    baseOptionListViews.get(2),
-                    addImageButtons.get(2),
-                    thirdField
-            );
-        }
-
-        String fourField = intent.getStringExtra(MainActivity.FIELDS.get(3));
-        if (thirdField != null) {
-            inputFieldService(CreateOrderDialogActivity.this,
-                    visionTextViews.get(3),
-                    inscriptionTextViews.get(3),
-                    inputEditTexts.get(3),
-                    baseOptionListViews.get(3),
-                    addImageButtons.get(3),
-                    fourField
-            );
-        }
-        String fifthField = intent.getStringExtra(MainActivity.FIELDS.get(4));
-        if (thirdField != null) {
-            inputFieldService(CreateOrderDialogActivity.this,
-                    visionTextViews.get(4),
-                    inscriptionTextViews.get(4),
-                    inputEditTexts.get(4),
-                    baseOptionListViews.get(4),
-                    addImageButtons.get(4),
-                    fifthField
-            );
-        }
+//
+//        String firstField = intent.getStringExtra(MainActivity.FIELDS.get(0));
+//        if (firstField != null) {
+//            inputFieldService(CreateOrderDialogActivity.this,
+//                    visionTextViews.get(0),
+//                    inscriptionTextViews.get(0),
+//                    inputEditTexts.get(0),
+//                    baseOptionListViews.get(0),
+//                    addImageButtons.get(0),
+//                    firstField
+//            );
+//        }
+//
+//        String secondField = intent.getStringExtra(MainActivity.FIELDS.get(1));
+//        if (secondField != null) {
+//            inputFieldService(CreateOrderDialogActivity.this,
+//                    visionTextViews.get(1),
+//                    inscriptionTextViews.get(1),
+//                    inputEditTexts.get(1),
+//                    baseOptionListViews.get(1),
+//                    addImageButtons.get(1),
+//                    secondField
+//            );
+//        }
+//        String thirdField = intent.getStringExtra(MainActivity.FIELDS.get(2));
+//        if (thirdField != null) {
+//            inputFieldService(CreateOrderDialogActivity.this,
+//                    visionTextViews.get(2),
+//                    inscriptionTextViews.get(2),
+//                    inputEditTexts.get(2),
+//                    baseOptionListViews.get(2),
+//                    addImageButtons.get(2),
+//                    thirdField
+//            );
+//        }
+//
+//        String fourField = intent.getStringExtra(MainActivity.FIELDS.get(3));
+//        if (thirdField != null) {
+//            inputFieldService(CreateOrderDialogActivity.this,
+//                    visionTextViews.get(3),
+//                    inscriptionTextViews.get(3),
+//                    inputEditTexts.get(3),
+//                    baseOptionListViews.get(3),
+//                    addImageButtons.get(3),
+//                    fourField
+//            );
+//        }
+//        String fifthField = intent.getStringExtra(MainActivity.FIELDS.get(4));
+//        if (thirdField != null) {
+//            inputFieldService(CreateOrderDialogActivity.this,
+//                    visionTextViews.get(4),
+//                    inscriptionTextViews.get(4),
+//                    inputEditTexts.get(4),
+//                    baseOptionListViews.get(4),
+//                    addImageButtons.get(4),
+//                    fifthField
+//            );
+//        }
 
     }
 
@@ -174,9 +244,11 @@ public class CreateOrderDialogActivity extends AppCompatActivity {
                                    String fieldName) {
         fieldRepository.getFieldByName(fieldName).observe(CreateOrderDialogActivity.this, fieldObject -> {
             if (fieldObject != null) {
-                FieldSetViews fieldSetViews = new FieldSetViews(field, input, title, listView, imageButton);
+                fieldsFromIntent.add(fieldName);
+                FieldSetViews fieldSetViews = new FieldSetViews(fieldObject.getInscription(), fieldName, field, input, title, listView, imageButton);
                 fields.add(fieldSetViews);
-                RepositoryService repositoryService = getSourceRepository(getApplication(), fieldObject.getDataSource());
+                fieldsMap.put(fieldName, fieldSetViews);
+                RepositoryService repositoryService = getRepositoryNewEntity(getApplication(), fieldObject.getDataSource());
                 field.setVisibility(fieldObject.getNameTextViewVisibility());
                 field.setHint(fieldObject.getHint());
                 title.setVisibility(fieldObject.getInscriptionTextViewVisibility());
@@ -188,26 +260,23 @@ public class CreateOrderDialogActivity extends AppCompatActivity {
 
                         for (FieldSetViews f : fields) {
                             if (f != fieldSetViews){
-                                f.removeFocus();
+                                f.removeFocus(CreateOrderDialogActivity.this);
                             }
                         }
-
-
-
-
                         imageButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                fieldRepository.getAllFields().observe(CreateOrderDialogActivity.this, x -> {
-                                    for (Field f : x) {
-                                        System.out.println(f.getName() + ":" + f.getInscription());
-                                    }
-                                });
+//                                fieldRepository.getAllFields().observe(CreateOrderDialogActivity.this, x -> {
+//                                    for (Field f : x) {
+//                                        System.out.println(f.getName() + ":" + f.getInscription());
+//                                    }
+//                                });
                                 Intent intent = new Intent(CreateOrderDialogActivity.this, CreateOrderDialogActivity.class);
                                 ArrayList<String> fields = getObjectForFields(fieldName).getListOfField();
                                 for (int i = 0; i < fields.size(); i++) {
                                     intent.putExtra(MainActivity.FIELDS.get(i), fields.get(i));
                                 }
+                                intent.putExtra(MainActivity.NAME_ENTITY, "client");
                                 startActivity(intent);
                             }
                         });
@@ -327,7 +396,7 @@ public class CreateOrderDialogActivity extends AppCompatActivity {
         });
     }
 
-    private RepositoryService getSourceRepository(Application application, String dataSource) {
+    private RepositoryService getRepositoryNewEntity(Application application, String dataSource) {
         switch (dataSource) {
             case "cartridge":
                 return new CartridgeRepository(application);
@@ -362,27 +431,38 @@ public class CreateOrderDialogActivity extends AppCompatActivity {
         imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
     }
 
-    private class FieldSetViews{
-        TextView name;
-        EditText editText;
-        TextView inscription;
-        ListView listView;
-        ImageButton imageButton;
-
-        public FieldSetViews(TextView name, EditText editText, TextView inscription, ListView listView, ImageButton imageButton) {
-            this.name = name;
-            this.editText = editText;
-            this.inscription = inscription;
-            this.listView = listView;
-            this.imageButton = imageButton;
-        }
-        void removeFocus(){
-            name.setVisibility(View.VISIBLE);
-            name.setText(editText.getText());
-            editText.setVisibility(View.INVISIBLE);
-            inscription.setVisibility(View.VISIBLE);
-            listView.setVisibility(View.GONE);
-            imageButton.setVisibility(View.INVISIBLE);
-        }
-    }
+//    private class FieldSetViews{
+//        String inscriptionText;
+//        String fieldName;
+//        TextView name;
+//        EditText editText;
+//        TextView inscription;
+//        ListView listView;
+//        ImageButton imageButton;
+//
+//        public String getFieldName() {
+//            return fieldName;
+//        }
+//
+//        public FieldSetViews(String inscriptionText, String fieldName, TextView name, EditText editText, TextView inscription, ListView listView, ImageButton imageButton) {
+//            this.inscriptionText = inscriptionText;
+//            this.fieldName = fieldName;
+//            this.name = name;
+//            this.editText = editText;
+//            this.inscription = inscription;
+//            this.listView = listView;
+//            this.imageButton = imageButton;
+//        }
+//        void removeFocus(){
+//            if (name.getVisibility() == View.INVISIBLE) {
+//                name.setVisibility(View.VISIBLE);
+//                name.setText(editText.getText());
+//                editText.setVisibility(View.INVISIBLE);
+//                inscription.setVisibility(View.VISIBLE);
+//                listView.setVisibility(View.GONE);
+//                imageButton.setVisibility(View.INVISIBLE);
+//                hideKeyboard(CreateOrderDialogActivity.this, editText);
+//            }
+//        }
+//    }
 }

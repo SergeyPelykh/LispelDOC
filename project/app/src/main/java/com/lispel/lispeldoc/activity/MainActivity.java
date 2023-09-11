@@ -294,21 +294,21 @@ public class MainActivity extends AppCompatActivity {
                         clientField.setHint("имя клиента");
                         clientField.setInscription("клиент");
                         clientField.setDataSource("client");
-                        clientField.setInputType(1);
+                        clientField.setInputType(8192);
 
                         Field name = new Field();
                         name.setName("name");
                         name.setHint("имя");
                         name.setInscription("имя");
                         name.setDataSource("none");
-                        name.setInputType(1);
+                        name.setInputType(8192);
 
                         Field fullName = new Field();
                         fullName.setName("fullName");
                         fullName.setHint("полное имя");
                         fullName.setInscription("полное имя");
                         fullName.setDataSource("none");
-                        fullName.setInputType(1);
+                        fullName.setInputType(8192);
 
                         Field phone = new Field();
                         phone.setName("phone");
@@ -357,6 +357,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, CreateOrderDialogActivity.class);
+                intent.putExtra(NAME_ENTITY, "cartridge");
                 intent.putExtra(FIELD_1, "client");
                 startForNewOrder.launch(intent);
             }
