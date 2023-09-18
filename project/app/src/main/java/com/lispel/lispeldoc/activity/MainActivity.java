@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.lispel.lispeldoc.R;
 import com.lispel.lispeldoc.model.lispel.WeirdClass;
@@ -48,7 +49,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     static final String FIELD_VALUE = "valueField";
@@ -68,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
     static final String NAME_ENTITY = "nameEntity";
     static final String ID = "id";
     static final String MODE = "mode";
+    static final Map<String, String> GLOBAL_FIELDS_VALUE = new HashMap<>();
+
     private ImageButton submitButton;
     private Button newButton;
     private Button addButton;
@@ -158,6 +163,34 @@ public class MainActivity extends AppCompatActivity {
         ClientRepository clientRepository = new ClientRepository(getApplication());
 
 
+        GLOBAL_FIELDS_VALUE.put("vendor", "Hp");
+
+
+//        StreetRepository streetRepositoryCartridgeVendor = new StreetRepository(
+//                getApplication(),"vendor");
+//        TextView someText = findViewById(R.id.some_text);
+
+//        streetRepositoryCartridgeVendor.getAllStreets().observe(MainActivity.this, y -> {
+//            if (y.size() == 0) {
+//                String line = "";
+//                try(
+//                        BufferedReader bufferedReader = new BufferedReader(
+//                                new InputStreamReader(getAssets().open("vendor.txt"))))
+//                {
+//                    while ((line = bufferedReader.readLine()) != null){
+//                        streetRepository.insert(new Street("vendor", line));
+//                    }
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            } else {
+//                for (Street str: y ) {
+//                    someText.setText(someText.getText() + " " + str.getName());
+//                }
+//            }
+//        });
+
+
         weirdClassModel = new ViewModelProvider(this).get(WeirdClassModel.class);
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         final WeirdClassListAdapter adapter = new WeirdClassListAdapter(new WeirdClassListAdapter.StickerNumberDiff(), this);
@@ -184,10 +217,7 @@ public class MainActivity extends AppCompatActivity {
                     fillBaseButton.setText(fillBaseButton.getText() + " " + x.size() + "cl");
                 });
                 Intent intent = new Intent(MainActivity.this, CreateOrderDialogActivity.class);
-                intent.putExtra(FIELD_1, "address");
-                intent.putExtra(FIELD_2, "clientType");
-                intent.putExtra(FIELD_3, "cartridge");
-                intent.putExtra(NAME_ENTITY, "new entity");
+                intent.putExtra(NAME_ENTITY, "client");
                 startForResult.launch(intent);
 
             }
@@ -208,7 +238,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, CreateOrderDialogActivity.class);
                 //intent.putExtra(FIELD_1, "address");
-                startForResult.launch(intent);
+                //startForResult.launch(intent);
+
+                TextView someText = findViewById(R.id.some_text);
                 streetRepository.getAllStreets().observe(MainActivity.this, x -> {
                     if (x.size() == 0){
                         String line = "";
@@ -222,6 +254,42 @@ public class MainActivity extends AppCompatActivity {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+
+
+                        try(
+                                BufferedReader bufferedReader = new BufferedReader(
+                                        new InputStreamReader(getAssets().open("vendor.txt"))))
+                        {
+                            while ((line = bufferedReader.readLine()) != null){
+                                streetRepository.insert(new Street("vendor", line));
+                                someText.setText(someText.getText() + " " + line);
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        try(
+                                BufferedReader bufferedReader = new BufferedReader(
+                                        new InputStreamReader(getAssets().open("cartridgeModels.txt"))))
+                        {
+                            while ((line = bufferedReader.readLine()) != null){
+                                streetRepository.insert(new Street("cartridgeModel", line));
+                                someText.setText(someText.getText() + " " + line);
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        StreetRepository originalityRepository = new StreetRepository(getApplication(),
+                                "originality");
+                        originalityRepository.insert(new Street("originality", "оригинальный"));
+                        originalityRepository.insert(new Street("originality", "совместимый"));
+
+
+
+
+
+
                     } else {
                         fillBaseButton.setText(x.size() + " str");
                     }
@@ -269,6 +337,8 @@ public class MainActivity extends AppCompatActivity {
 
                         Field address = new Field();
                         address.setName("address");
+                        address.setSavedValueName("address");
+                        address.setLinkedValueName("none");
                         address.setHint("адрес");
                         address.setInscription("адрес клиента");
                         address.setDataSource("street");
@@ -276,6 +346,8 @@ public class MainActivity extends AppCompatActivity {
 
                         Field clientType = new Field();
                         clientType.setName("clientType");
+                        clientType.setSavedValueName("clientType");
+                        clientType.setLinkedValueName("none");
                         clientType.setHint("организация/физик");
                         clientType.setInscription("тип клиента");
                         clientType.setDataSource("clientType");
@@ -317,6 +389,47 @@ public class MainActivity extends AppCompatActivity {
                         phone.setDataSource("none");
                         phone.setInputType(3);
 
+                        Field vendor = new Field();
+                        vendor.setName("vendor");
+                        vendor.setSavedValueName("vendor");
+                        vendor.setHint("производитель картриджа");
+                        vendor.setInscription("производитель");
+                        vendor.setDataSource("vendor");
+                        vendor.setInputType(8192);
+
+//                        Field model = new Field();
+//                        model.setName("model");
+//                        model.setHint("модель картриджа");
+//                        model.setInscription("модель");
+//                        model.setDataSource("none");
+//                        vendor.setInputType(8192);
+
+                        Field owner = new Field();
+                        owner.setName("owner");
+                        owner.setHint("владелец картриджа");
+                        owner.setInscription("владелец");
+                        owner.setDataSource("owner");
+                        owner.setInputType(8192);
+
+                        Field cartridgeSpecific = new Field();
+                        cartridgeSpecific.setName("cartridgeModel");
+                        cartridgeSpecific.setLinkedValueName("vendor");
+                        cartridgeSpecific.setHint("модель картриджа");
+                        cartridgeSpecific.setInscription("модель");
+                        cartridgeSpecific.setDataSource("cartridgeModel");
+                        cartridgeSpecific.setInputType(1);
+
+                        Field originality = new Field();
+                        originality.setName("originality");
+                        originality.setHint("совместимость");
+                        originality.setInscription("совместимость");
+                        originality.setDataSource("originality");
+                        originality.setInputType(1);
+
+
+
+
+
                         fieldRepository.insert(address);
                         fieldRepository.insert(clientType);
                         fieldRepository.insert(cartridge);
@@ -324,11 +437,13 @@ public class MainActivity extends AppCompatActivity {
                         fieldRepository.insert(name);
                         fieldRepository.insert(fullName);
                         fieldRepository.insert(phone);
+                        fieldRepository.insert(vendor);
+                       // fieldRepository.insert(model);
+                        fieldRepository.insert(owner);
+                        fieldRepository.insert(cartridgeSpecific);
+                        fieldRepository.insert(originality);
                     }
                 });
-
-
-
 
 
 
@@ -357,8 +472,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, CreateOrderDialogActivity.class);
-                intent.putExtra(NAME_ENTITY, "cartridge");
-                intent.putExtra(FIELD_1, "client");
+                intent.putExtra(NAME_ENTITY, "cartridgeSpecific");
+                //intent.putExtra(FIELD_1, "client");
                 startForNewOrder.launch(intent);
             }
         });

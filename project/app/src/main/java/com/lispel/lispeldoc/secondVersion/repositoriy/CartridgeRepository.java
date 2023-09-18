@@ -10,6 +10,7 @@ import com.lispel.lispeldoc.newVersion.repositories.LispelDataBase;
 import com.lispel.lispeldoc.secondVersion.dao.CartridgeDAO;
 import com.lispel.lispeldoc.secondVersion.inteface.GetListOfFields;
 import com.lispel.lispeldoc.secondVersion.model.Cartridge;
+import com.lispel.lispeldoc.secondVersion.model.Client;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -80,22 +81,31 @@ public class CartridgeRepository implements RepositoryService{
     }
 
     @Override
-    public Long insertNewEntityInBase(ArrayList<String> fields) {
-        Cartridge cartridge = new Cartridge();
-        cartridge.setModel(fields.get(0));
-        cartridge.setVendor(fields.get(1));
-        cartridge.setOriginality(Boolean.parseBoolean(fields.get(2)));
-        cartridge.setOwner(Long.parseLong(fields.get(3)));
-        ArrayList<Long> stickers = new ArrayList<>();
-        stickers.add(Long.parseLong(fields.get(4)));
-        System.out.println("insertNewEntityInBase()");
-        //cartridge.setStickers("stickers");
-        cartridge.addSticker(Long.parseLong(fields.get(4)));
-        return cartridgeDAO.insert(cartridge);
+    public Long insertNewEntityInBase(ArrayList<String> properties) {
+        if (getListOfFields().size() == properties.size()) {
+            Cartridge cartridge = new Cartridge();
+            cartridge.setModel(properties.get(0));
+            cartridge.setVendor(properties.get(1));
+            cartridge.setOwner(1);
+            return insert(cartridge);
+        }else {
+            throw new IndexOutOfBoundsException("size of Array with properties not equal to new Entity");
+        }
+//        Cartridge cartridge = new Cartridge();
+//        cartridge.setModel(fields.get(0));
+//        cartridge.setVendor(fields.get(1));
+//        cartridge.setOriginality(Boolean.parseBoolean(fields.get(2)));
+//        cartridge.setOwner(Long.parseLong(fields.get(3)));
+//        ArrayList<Long> stickers = new ArrayList<>();
+//        stickers.add(Long.parseLong(fields.get(4)));
+//        System.out.println("insertNewEntityInBase()");
+//        //cartridge.setStickers("stickers");
+//        cartridge.addSticker(Long.parseLong(fields.get(4)));
+//        return cartridgeDAO.insert(cartridge);
     }
 
     @Override
     public ArrayList<String> getListOfFields() {
-        return new ArrayList<>(Arrays.asList("client"));
+        return new ArrayList<>(Arrays.asList("model", "vendor", "owner"));
     }
 }

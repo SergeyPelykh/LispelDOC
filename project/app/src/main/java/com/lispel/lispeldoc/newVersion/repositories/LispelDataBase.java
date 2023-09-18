@@ -15,11 +15,13 @@ import com.lispel.lispeldoc.newVersion.models.ClientLispelPerson;
 import com.lispel.lispeldoc.newVersion.models.StickerLispel;
 import com.lispel.lispeldoc.newVersion.models.Toner;
 import com.lispel.lispeldoc.secondVersion.dao.CartridgeDAO;
+import com.lispel.lispeldoc.secondVersion.dao.CartridgeSpecificDAO;
 import com.lispel.lispeldoc.secondVersion.dao.ClientDAO;
 import com.lispel.lispeldoc.secondVersion.dao.ComponentDAO;
 import com.lispel.lispeldoc.secondVersion.dao.FieldDAO;
 import com.lispel.lispeldoc.secondVersion.dao.StickerDAO;
 import com.lispel.lispeldoc.secondVersion.dao.StreetDAO;
+import com.lispel.lispeldoc.secondVersion.model.CartridgeSpecific;
 import com.lispel.lispeldoc.secondVersion.model.Client;
 import com.lispel.lispeldoc.secondVersion.model.Component;
 import com.lispel.lispeldoc.secondVersion.model.Sticker;
@@ -40,9 +42,11 @@ import java.util.concurrent.Executors;
         Street.class,
         StickerLispel.class,
         ClientLispelPerson.class,
-        Cartridge.class},
+        Cartridge.class,
+        CartridgeSpecific.class},
         version = 4, exportSchema = false)
 public abstract class LispelDataBase extends RoomDatabase {
+    public abstract CartridgeSpecificDAO cartridgeSpecificDAO();
     public abstract StreetDAO streetDAO();
     public abstract TonerDAO tonerDAO();
     public abstract ClientDAO ClientDAO();

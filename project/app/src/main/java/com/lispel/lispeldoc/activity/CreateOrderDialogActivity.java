@@ -31,8 +31,11 @@ import android.widget.Toast;
 import com.lispel.lispeldoc.R;
 import com.lispel.lispeldoc.model.utility.RepositoryService;
 import com.lispel.lispeldoc.secondVersion.inteface.ListedFields;
+import com.lispel.lispeldoc.secondVersion.model.Cartridge;
+import com.lispel.lispeldoc.secondVersion.model.CartridgeSpecific;
 import com.lispel.lispeldoc.secondVersion.model.Client;
 import com.lispel.lispeldoc.secondVersion.repositoriy.CartridgeRepository;
+import com.lispel.lispeldoc.secondVersion.repositoriy.CartridgeSpecificRepository;
 import com.lispel.lispeldoc.secondVersion.repositoriy.ClientRepository;
 import com.lispel.lispeldoc.secondVersion.repositoriy.FieldRepository;
 import com.lispel.lispeldoc.secondVersion.repositoriy.StreetRepository;
@@ -64,13 +67,19 @@ public class CreateOrderDialogActivity extends AppCompatActivity {
         String nameOfClassNewEntity = intent.getStringExtra(MainActivity.NAME_ENTITY);
         if (nameOfClassNewEntity != null) {
             switch (nameOfClassNewEntity) {
+                case "cartridge":
+                    titleOfNewEntity= "Картридж";
+                    break;
                 case "client":
                     titleOfNewEntity = "Клиент";
                     break;
                 case "order":
                     titleOfNewEntity = "Заказ";
+                    break;
+                case "cartridgeSpecific":
+                    titleOfNewEntity = "модель";
+                    break;
             }
-            ;
         }
         RepositoryService repository = getRepositoryNewEntity(getApplication(), nameOfClassNewEntity);
         ArrayList<String> fieldsOfNewEntity = repository.getListOfFields();
@@ -82,9 +91,12 @@ public class CreateOrderDialogActivity extends AppCompatActivity {
                 MutableLiveData<Long> idNewEntity = new MutableLiveData<Long>();
 
                 ArrayList<String> properties = new ArrayList<>();
-                    for (int i = 0; i < repository.getListOfFields().size(); i++) {
+                for (int i = 0; i < repository.getListOfFields().size(); i++) {
                         properties.add(fieldsMap.get(repository.getListOfFields().get(i)).getName().getText().toString());
                 }
+
+
+
 
                 Thread thread = new Thread(new Runnable() {
                     @Override
@@ -121,6 +133,7 @@ public class CreateOrderDialogActivity extends AppCompatActivity {
         baseOptionListViews.add(findViewById(R.id.add_entity_field3_ListView));
         baseOptionListViews.add(findViewById(R.id.add_entity_field4_ListView));
         baseOptionListViews.add(findViewById(R.id.add_entity_field5_ListView));
+        baseOptionListViews.add(findViewById(R.id.add_entity_field6_ListView));
 
         ArrayList<ImageButton> addImageButtons = new ArrayList<>();
         addImageButtons.add(findViewById(R.id.add_entity_field_imageButton));
@@ -128,6 +141,7 @@ public class CreateOrderDialogActivity extends AppCompatActivity {
         addImageButtons.add(findViewById(R.id.add_entity_field3_imageButton));
         addImageButtons.add(findViewById(R.id.add_entity_field4_imageButton));
         addImageButtons.add(findViewById(R.id.add_entity_field5_imageButton));
+        addImageButtons.add(findViewById(R.id.add_entity_field6_imageButton));
 
         ArrayList<TextView> visionTextViews = new ArrayList<>();
         visionTextViews.add(findViewById(R.id.add_entity_field_textView));
@@ -135,6 +149,7 @@ public class CreateOrderDialogActivity extends AppCompatActivity {
         visionTextViews.add(findViewById(R.id.add_entity_field3_textView));
         visionTextViews.add(findViewById(R.id.add_entity_field4_textView));
         visionTextViews.add(findViewById(R.id.add_entity_field5_textView));
+        visionTextViews.add(findViewById(R.id.add_entity_field6_textView));
 
         ArrayList<TextView> inscriptionTextViews = new ArrayList<>();
         inscriptionTextViews.add(findViewById(R.id.inscription_add_entity_field_TextView));
@@ -142,6 +157,7 @@ public class CreateOrderDialogActivity extends AppCompatActivity {
         inscriptionTextViews.add(findViewById(R.id.inscription_add_entity_field3_TextView));
         inscriptionTextViews.add(findViewById(R.id.inscription_add_entity_field4_TextView));
         inscriptionTextViews.add(findViewById(R.id.inscription_add_entity_field5_TextView));
+        inscriptionTextViews.add(findViewById(R.id.inscription_add_entity_field6_TextView));
 
         ArrayList<EditText> inputEditTexts = new ArrayList<>();
         inputEditTexts.add(findViewById(R.id.add_entity_field_editText));
@@ -149,6 +165,7 @@ public class CreateOrderDialogActivity extends AppCompatActivity {
         inputEditTexts.add(findViewById(R.id.add_entity_field3_editText));
         inputEditTexts.add(findViewById(R.id.add_entity_field4_editText));
         inputEditTexts.add(findViewById(R.id.add_entity_field5_editText));
+        inputEditTexts.add(findViewById(R.id.add_entity_field6_editText));
 
         for (TextView t : visionTextViews) {
             t.setVisibility(View.INVISIBLE);
@@ -172,66 +189,6 @@ public class CreateOrderDialogActivity extends AppCompatActivity {
                     addImageButtons.get(i),
                     fieldsOfNewEntity.get(i));
         }
-
-//
-//        String firstField = intent.getStringExtra(MainActivity.FIELDS.get(0));
-//        if (firstField != null) {
-//            inputFieldService(CreateOrderDialogActivity.this,
-//                    visionTextViews.get(0),
-//                    inscriptionTextViews.get(0),
-//                    inputEditTexts.get(0),
-//                    baseOptionListViews.get(0),
-//                    addImageButtons.get(0),
-//                    firstField
-//            );
-//        }
-//
-//        String secondField = intent.getStringExtra(MainActivity.FIELDS.get(1));
-//        if (secondField != null) {
-//            inputFieldService(CreateOrderDialogActivity.this,
-//                    visionTextViews.get(1),
-//                    inscriptionTextViews.get(1),
-//                    inputEditTexts.get(1),
-//                    baseOptionListViews.get(1),
-//                    addImageButtons.get(1),
-//                    secondField
-//            );
-//        }
-//        String thirdField = intent.getStringExtra(MainActivity.FIELDS.get(2));
-//        if (thirdField != null) {
-//            inputFieldService(CreateOrderDialogActivity.this,
-//                    visionTextViews.get(2),
-//                    inscriptionTextViews.get(2),
-//                    inputEditTexts.get(2),
-//                    baseOptionListViews.get(2),
-//                    addImageButtons.get(2),
-//                    thirdField
-//            );
-//        }
-//
-//        String fourField = intent.getStringExtra(MainActivity.FIELDS.get(3));
-//        if (thirdField != null) {
-//            inputFieldService(CreateOrderDialogActivity.this,
-//                    visionTextViews.get(3),
-//                    inscriptionTextViews.get(3),
-//                    inputEditTexts.get(3),
-//                    baseOptionListViews.get(3),
-//                    addImageButtons.get(3),
-//                    fourField
-//            );
-//        }
-//        String fifthField = intent.getStringExtra(MainActivity.FIELDS.get(4));
-//        if (thirdField != null) {
-//            inputFieldService(CreateOrderDialogActivity.this,
-//                    visionTextViews.get(4),
-//                    inscriptionTextViews.get(4),
-//                    inputEditTexts.get(4),
-//                    baseOptionListViews.get(4),
-//                    addImageButtons.get(4),
-//                    fifthField
-//            );
-//        }
-
     }
 
     @SuppressLint("WrongConstant")
@@ -254,6 +211,10 @@ public class CreateOrderDialogActivity extends AppCompatActivity {
                 title.setVisibility(fieldObject.getInscriptionTextViewVisibility());
                 title.setText(fieldObject.getInscription());
                 input.setInputType(fieldObject.getInputType());
+
+
+
+
                 field.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -266,17 +227,8 @@ public class CreateOrderDialogActivity extends AppCompatActivity {
                         imageButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-//                                fieldRepository.getAllFields().observe(CreateOrderDialogActivity.this, x -> {
-//                                    for (Field f : x) {
-//                                        System.out.println(f.getName() + ":" + f.getInscription());
-//                                    }
-//                                });
                                 Intent intent = new Intent(CreateOrderDialogActivity.this, CreateOrderDialogActivity.class);
-                                ArrayList<String> fields = getObjectForFields(fieldName).getListOfField();
-                                for (int i = 0; i < fields.size(); i++) {
-                                    intent.putExtra(MainActivity.FIELDS.get(i), fields.get(i));
-                                }
-                                intent.putExtra(MainActivity.NAME_ENTITY, "client");
+                                intent.putExtra(MainActivity.NAME_ENTITY, fieldName);
                                 startActivity(intent);
                             }
                         });
@@ -293,7 +245,15 @@ public class CreateOrderDialogActivity extends AppCompatActivity {
                         listView.setAdapter(adapter);
                         if (repositoryService != null) {
                             imageButton.setVisibility(View.VISIBLE);
-                            repositoryService.findAllByStringField(input.getText().toString()).observe(CreateOrderDialogActivity.this, x -> {
+
+                            String linkedValue = "";
+                            if (fieldObject.getLinkedValueName() != null){
+                                if (MainActivity.GLOBAL_FIELDS_VALUE.containsKey(fieldObject.getLinkedValueName())){
+                                    linkedValue = MainActivity.GLOBAL_FIELDS_VALUE.get(fieldObject.getLinkedValueName());
+                                }
+                            }
+
+                            repositoryService.findAllByStringField(linkedValue + input.getText().toString()).observe(CreateOrderDialogActivity.this, x -> {
                                 if (x.size() != 0) {
                                     adapter.clear();
                                     adapter.addAll(x);
@@ -310,6 +270,9 @@ public class CreateOrderDialogActivity extends AppCompatActivity {
                                                 imageButton.setVisibility(View.INVISIBLE);
                                                 title.setVisibility(View.VISIBLE);
                                                 field.setVisibility(View.VISIBLE);
+                                                if (fieldObject.getSavedValueName() != null){
+                                                    MainActivity.GLOBAL_FIELDS_VALUE.put(fieldObject.getSavedValueName(), field.getText().toString());
+                                                }
                                             } else {
                                                 input.setText(x.get(position) + " ");
                                                 listView.setVisibility(View.GONE);
@@ -337,6 +300,9 @@ public class CreateOrderDialogActivity extends AppCompatActivity {
                                     listView.setVisibility(View.GONE);
                                     field.setVisibility(View.VISIBLE);
                                     title.setVisibility(View.VISIBLE);
+                                    if (fieldObject.getSavedValueName() != null){
+                                        MainActivity.GLOBAL_FIELDS_VALUE.put(fieldObject.getSavedValueName(), field.getText().toString());
+                                    }
                                     hideKeyboard(context, input);
                                     return true;
                                 }
@@ -373,6 +339,9 @@ public class CreateOrderDialogActivity extends AppCompatActivity {
                                                     imageButton.setVisibility(View.INVISIBLE);
                                                     title.setVisibility(View.VISIBLE);
                                                     field.setVisibility(View.VISIBLE);
+                                                    if (fieldObject.getSavedValueName() != null){
+                                                        MainActivity.GLOBAL_FIELDS_VALUE.put(fieldObject.getSavedValueName(), field.getText().toString());
+                                                    }
                                                 } else {
                                                     input.setText(x.get(position) + " ");
                                                     listView.setVisibility(View.GONE);
@@ -400,7 +369,10 @@ public class CreateOrderDialogActivity extends AppCompatActivity {
         switch (dataSource) {
             case "cartridge":
                 return new CartridgeRepository(application);
+            case "cartridgeSpecific":
+                return new CartridgeSpecificRepository(application);
             case "client":
+            case "owner":
                 return new ClientRepository(application);
             case "none":
                 return null;
@@ -412,7 +384,12 @@ public class CreateOrderDialogActivity extends AppCompatActivity {
 
     private ListedFields getObjectForFields(String str) {
         switch (str) {
+            case "cartridge":
+                return new Cartridge();
+            case "cartridgeSpecific":
+                return new CartridgeSpecific();
             case "client":
+            case "owner":
                 return new Client();
             default:
                 return null;
@@ -431,38 +408,4 @@ public class CreateOrderDialogActivity extends AppCompatActivity {
         imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
     }
 
-//    private class FieldSetViews{
-//        String inscriptionText;
-//        String fieldName;
-//        TextView name;
-//        EditText editText;
-//        TextView inscription;
-//        ListView listView;
-//        ImageButton imageButton;
-//
-//        public String getFieldName() {
-//            return fieldName;
-//        }
-//
-//        public FieldSetViews(String inscriptionText, String fieldName, TextView name, EditText editText, TextView inscription, ListView listView, ImageButton imageButton) {
-//            this.inscriptionText = inscriptionText;
-//            this.fieldName = fieldName;
-//            this.name = name;
-//            this.editText = editText;
-//            this.inscription = inscription;
-//            this.listView = listView;
-//            this.imageButton = imageButton;
-//        }
-//        void removeFocus(){
-//            if (name.getVisibility() == View.INVISIBLE) {
-//                name.setVisibility(View.VISIBLE);
-//                name.setText(editText.getText());
-//                editText.setVisibility(View.INVISIBLE);
-//                inscription.setVisibility(View.VISIBLE);
-//                listView.setVisibility(View.GONE);
-//                imageButton.setVisibility(View.INVISIBLE);
-//                hideKeyboard(CreateOrderDialogActivity.this, editText);
-//            }
-//        }
-//    }
 }

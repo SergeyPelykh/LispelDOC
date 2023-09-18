@@ -40,7 +40,7 @@ public class ClientRepository implements RepositoryService {
     @Override
     public ArrayList<String> getListOfFields() {
         return new ArrayList<>(Arrays.asList("name", "fullName",
-                "address", "phone", "clientType"));
+                "address", "phone", "clientType", "cartridge"));
     }
 
     public LiveData<List<Client>> getAllClients(){
@@ -73,11 +73,12 @@ public class ClientRepository implements RepositoryService {
 
     @Override
     public Long insert(GetListOfFields getListOfFields) {
+
         return insert((Client) getListOfFields);
     }
 
     public Long insertNewEntity(ArrayList<String> properties){
-        if (Client.getNameFields().size() == properties.size()) {
+        if (getListOfFields().size() == properties.size()) {
             Client client = new Client();
             client.setName(properties.get(0));
             client.setFullName(properties.get(1));

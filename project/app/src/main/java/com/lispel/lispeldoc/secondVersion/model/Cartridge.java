@@ -9,6 +9,7 @@ import androidx.room.TypeConverters;
 
 import com.lispel.lispeldoc.model.utility.Convert;
 import com.lispel.lispeldoc.secondVersion.inteface.GetListOfFields;
+import com.lispel.lispeldoc.secondVersion.inteface.ListedFields;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,7 +19,7 @@ import java.util.stream.Stream;
 
 @Entity(tableName = "cartridge_table_second")
 @TypeConverters({Convert.class})
-public class Cartridge implements GetListOfFields {
+public class Cartridge implements GetListOfFields, ListedFields {
     @PrimaryKey(autoGenerate = true)
     private long id;
     private String model;
@@ -96,4 +97,11 @@ public class Cartridge implements GetListOfFields {
         ArrayList<String> result = Stream.of("модель", "1", "вендор", "1", "оригинальность", "1", "владелец", "3", "стикер",  "1").collect(Collectors.toCollection(ArrayList::new));
         return result;
     }
+
+    @Override
+    public ArrayList<String> getListOfField() {
+        return fields;
+    }
+
+    private static ArrayList<String> fields = new ArrayList<>(Arrays.asList("model", "vendor", "owner"));
 }

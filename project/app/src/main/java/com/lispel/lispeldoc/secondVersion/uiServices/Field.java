@@ -19,6 +19,8 @@ public class Field {
     private String dataSource;
     private String hint;
     private String inscription;
+    private String savedValueName;
+    private String linkedValueName;
 
     public Field() {
         this.nameTextViewVisibility = 0x00000000;
@@ -26,6 +28,22 @@ public class Field {
         this.imageButtonVisibility = 0x00000004;
         this.inscriptionTextViewVisibility = 0x00000000;
         this.listDataVisibility = 0x00000008;
+    }
+
+    public String getSavedValueName() {
+        return savedValueName;
+    }
+
+    public void setSavedValueName(String savedValueName) {
+        this.savedValueName = savedValueName;
+    }
+
+    public String getLinkedValueName() {
+        return linkedValueName;
+    }
+
+    public void setLinkedValueName(String linkedValueName) {
+        this.linkedValueName = linkedValueName;
     }
 
     public int getInputType() {

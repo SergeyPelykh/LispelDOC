@@ -21,12 +21,7 @@ import java.util.stream.Stream;
 
 @Entity(tableName = "client_table")
 public class Client implements GetListOfFields, ListedFields {
-    private static ArrayList<String> fields = new ArrayList<>(Arrays.asList("name", "fullName",
-            "address", "phone", "clientType"));
-    public static ArrayList<String> getNameFields(){
-        return new ArrayList<String>(Arrays.asList("name", "fullName",
-                "address", "phone", "clientType"));
-    }
+
 
     public static Client CreateNewEntity(ArrayList<String> properties){
         Client client = new Client();
@@ -35,6 +30,7 @@ public class Client implements GetListOfFields, ListedFields {
         client.setAddress(properties.get(2));
         client.setPhone(properties.get(3));
         client.setType(properties.get(4));
+        client.setCartridge(properties.get(5));
         return client;
     }
 
@@ -47,6 +43,15 @@ public class Client implements GetListOfFields, ListedFields {
     private String address;
     private String phone;
     private String type;
+    private String cartridge;
+
+    public String getCartridge() {
+        return cartridge;
+    }
+
+    public void setCartridge(String cartridge) {
+        this.cartridge = cartridge;
+    }
 
     public Client(long id) {
         this.id = id;
@@ -109,7 +114,8 @@ public class Client implements GetListOfFields, ListedFields {
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public ArrayList<String> getNameAllFields() {
-        ArrayList<String> result = Stream.of("имя", "1", "полное имя", "1", "адрес", "1", "телефон", "3", "тип",  "1").collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<String> result = Stream.of("имя", "1", "полное имя", "1", "адрес", "1", "телефон", "3", "тип",  "1")
+                .collect(Collectors.toCollection(ArrayList::new));
         return result;
     }
 
@@ -118,5 +124,6 @@ public class Client implements GetListOfFields, ListedFields {
         return fields;
     }
 
-
+    private static ArrayList<String> fields = new ArrayList<>(Arrays.asList("name", "fullName",
+            "address", "phone", "clientType", "vendor"));
 }
